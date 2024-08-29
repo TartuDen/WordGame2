@@ -7,7 +7,8 @@ import dotenv from "dotenv";
 import axios from "axios";
 
 // Importing custom modules
-
+import { user_info, user_statistic, user_words } from "./MOCKdata.js";
+import { calculateXpForNextLevel } from "./funcs.js";
 
 
 class AppError extends Error {
@@ -151,8 +152,9 @@ app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const user = req.user;
+      const total_exp = calculateXpForNextLevel(user_info.level)
 
-      res.status(200).render("index.ejs", {user});
+      res.status(200).render("index.ejs", {user, user_info, user_statistic, user_words, total_exp});
     } else {
       res.redirect("/auth/google");
     }
