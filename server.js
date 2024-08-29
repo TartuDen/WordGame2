@@ -71,7 +71,6 @@ passport.use(
             ava: "https://img-new.cgtrader.com/items/4519089/96a7e7a37b/large/mage-wizard-avatar-3d-icon-3d-model-96a7e7a37b.jpg",
         }
         if (!apiResp.email) {
-            console.log("hereeeeeee")
         //   const newUser = await regUser({
         //     user_name: profile.name.givenName,
         //     email: profile.emails[0].value,
@@ -120,7 +119,7 @@ app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "consent",
+    // prompt: "consent", //uncomment for user login.
   })
 );
 
@@ -151,7 +150,9 @@ app.get("/auth/logout", (req, res) => {
 app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
-      res.status(200).render("index.ejs", {});
+      const user = req.user;
+
+      res.status(200).render("index.ejs", {user});
     } else {
       res.redirect("/auth/google");
     }

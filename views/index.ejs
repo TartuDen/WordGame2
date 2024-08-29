@@ -47,10 +47,19 @@
     <div class="mt-4">
         <i class="bi bi-person-circle user-icon"></i>
     </div>
-    <div class="user-info mt-3 text-center">
-        <h4>John Doe</h4>
-        <p>Level: Beginner</p>
+    <div class="mt-4 user-info text-center">
+        <% if (locals.user) { %>
+            <img src="<%= user.ava %>" alt="User Avatar" class="img-fluid rounded-circle mb-3" style="width: 80px; height: 80px;">
+            <h4><%= user.user_name %></h4>
+            <p><%= user.email %></p>
+            <a href="/auth/logout" class="btn btn-danger mt-3">Logout</a>
+        <% } else { %>
+            <i class="bi bi-person-circle user-icon"></i>
+            <h4>John Doe</h4>
+            <p>Level: Beginner</p>
+        <% } %>
     </div>
+    
     <div class="footer">
         <p>© 2024 Word Game</p>
     </div>
