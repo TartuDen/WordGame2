@@ -9,6 +9,7 @@ import axios from "axios";
 // Importing custom modules
 import { user_info, user_statistic, user_words } from "./MOCKdata.js";
 import { calculateXpForNextLevel } from "./funcs.js";
+import getRandomWordAndTranslations from "./word_selector.js";
 
 
 class AppError extends Error {
@@ -153,8 +154,10 @@ app.get("/", async (req, res, next) => {
     if (req.isAuthenticated()) {
       const user = req.user;
       const total_exp = calculateXpForNextLevel(user_info.level)
+      const {selectedWord, additionalWords} = await getRandomWordAndTranslations("words.csv");
+      console.log(".......words:......\n",selectedWord, additionalWords);
 
-      res.status(200).render("index.ejs", {user, user_info, user_statistic, user_words, total_exp});
+      res.status(200).render("index.ejs", {user, user_info, user_statistic, user_words, total_exp, selectedWord, additionalWords});
     } else {
       res.redirect("/auth/google");
     }

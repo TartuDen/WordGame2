@@ -134,37 +134,28 @@
             <tr>
               <th>English Word</th>
               <th>Transcription</th>
-              <th>Russian Translation</th>
+              <th>Russian Translations</th>
             </tr>
           </thead>
           <tbody id="wordTable">
+            <!-- Example using EJS templating -->
+            <% if (selectedWord && additionalWords.length) { %>
             <tr>
-              <td class="word-text">apple</td>
-              <td class="transcription">ˈæpəl</td>
-              <td class="word-text">яблоко</td>
+              <td class="word-text"><%= selectedWord['English Word'] %></td>
+              <td class="transcription"><%= selectedWord.Transcription %></td>
+              <td>
+                <ul>
+                  <!-- Randomize the order of translations -->
+                  <% 
+                    const translations = [...additionalWords, selectedWord].sort(() => Math.random() - 0.5);
+                    translations.forEach((word) => { 
+                  %>
+                  <li><%= word['Russian Translation'] %></li>
+                  <% }); %>
+                </ul>
+              </td>
             </tr>
-            <!-- More rows will be dynamically inserted here -->
-            <tr>
-              <td class="word-text">book</td>
-              <td class="transcription">bʊk</td>
-              <td class="word-text">книга</td>
-            </tr>
-            <tr>
-              <td class="word-text">cat</td>
-              <td class="transcription">kæt</td>
-              <td class="word-text">кот</td>
-            </tr>
-            <tr>
-              <td class="word-text">dog</td>
-              <td class="transcription">dɔːɡ</td>
-              <td class="word-text">собака</td>
-            </tr>
-            <tr>
-              <td class="word-text">hello</td>
-              <td class="transcription">həˈloʊ</td>
-              <td class="word-text">привет</td>
-            </tr>
-            <!-- Additional rows would be added dynamically using EJS or other templating methods -->
+            <% } %>
           </tbody>
         </table>
       </div>
