@@ -11,13 +11,12 @@ import { user_info, user_statistic, user_words } from "./MOCKdata.js";
 import { calculateXpForNextLevel } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
 
-
 class AppError extends Error {
-    constructor(message, statusCode) {
-      super(message);
-      this.statusCode = statusCode;
-    }
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
   }
+}
 
 dotenv.config();
 
@@ -68,21 +67,21 @@ passport.use(
       try {
         // let apiResp = await getUser(profile.emails[0].value);
         let apiResp = {
-            user_name: "Den Ver",
-            email: "den@ver.com",
-            ava: "https://img-new.cgtrader.com/items/4519089/96a7e7a37b/large/mage-wizard-avatar-3d-icon-3d-model-96a7e7a37b.jpg",
-        }
+          user_name: "Den Ver",
+          email: "den@ver.com",
+          ava: "https://img-new.cgtrader.com/items/4519089/96a7e7a37b/large/mage-wizard-avatar-3d-icon-3d-model-96a7e7a37b.jpg",
+        };
         if (!apiResp.email) {
-        //   const newUser = await regUser({
-        //     user_name: profile.name.givenName,
-        //     email: profile.emails[0].value,
-        //     ava: profile.photos[0].value,
-        //   });
-        const newUser = {
+          //   const newUser = await regUser({
+          //     user_name: profile.name.givenName,
+          //     email: profile.emails[0].value,
+          //     ava: profile.photos[0].value,
+          //   });
+          const newUser = {
             user_name: profile.name.givenName,
             email: profile.emails[0].value,
             ava: profile.photos[0].value,
-              }
+          };
           cb(null, newUser.data);
         } else {
           cb(null, apiResp); // User already exists
@@ -148,16 +147,51 @@ app.get("/auth/logout", (req, res) => {
   });
 });
 
+app.post("/correct_answer", async (req, res, next) => {
+  try {
+    if (req.isAuthenticated()) {
+      console.log("correct guessed: ", req.body);
+      res.redirect("/");
+    } else {
+      res.redirect("/auth/google");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/wrong_answer", async (req, res, next) => {
+  try {
+    if (req.isAuthenticated()) {
+      console.log("wrong guessed: ", req.body);
+      res.redirect("/");
+    } else {
+      res.redirect("/auth/google");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const user = req.user;
-      const total_exp = calculateXpForNextLevel(user_info.level)
-      const {selectedWord, additionalWords} = await getRandomWordAndTranslations("words.csv");
-      console.log(".......words:......\n",selectedWord, additionalWords);
+      const total_exp = calculateXpForNextLevel(user_info.level);
+      const { selectedWord, additionalWords } =
+        await getRandomWordAndTranslations("words.csv");
 
-      res.status(200).render("index.ejs", {user, user_info, user_statistic, user_words, total_exp, selectedWord, additionalWords});
+      res
+        .status(200)
+        .render("index.ejs", {
+          user,
+          user_info,
+          user_statistic,
+          user_words,
+          total_exp,
+          selectedWord,
+          additionalWords,
+        });
     } else {
       res.redirect("/auth/google");
     }

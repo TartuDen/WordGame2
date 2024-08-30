@@ -70,7 +70,12 @@
       .content,
       table th,
       table td {
-        color: #00008b !important;/* Dark Blue */
+        color: #00008b !important; /* Dark Blue */
+      }
+      .translation-option {
+        cursor: pointer;
+        color: blue;
+        text-decoration: underline;
       }
     </style>
   </head>
@@ -138,7 +143,6 @@
             </tr>
           </thead>
           <tbody id="wordTable">
-            <!-- Example using EJS templating -->
             <% if (selectedWord && additionalWords.length) { %>
             <tr>
               <td class="word-text"><%= selectedWord['English Word'] %></td>
@@ -150,7 +154,14 @@
                     const translations = [...additionalWords, selectedWord].sort(() => Math.random() - 0.5);
                     translations.forEach((word) => { 
                   %>
-                  <li><%= word['Russian Translation'] %></li>
+                  <li>
+                    <form action="<%= word['Russian Translation'] === selectedWord['Russian Translation'] ? '/correct_answer' : '/wrong_answer' %>" method="post" style="display:inline;">
+                      <input type="hidden" name="selectedWord" value='<%= JSON.stringify(selectedWord) %>' />
+                      <button type="submit" class="translation-option">
+                        <%= word['Russian Translation'] %>
+                      </button>
+                    </form>
+                  </li>
                   <% }); %>
                 </ul>
               </td>
