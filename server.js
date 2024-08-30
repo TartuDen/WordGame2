@@ -8,8 +8,9 @@ import axios from "axios";
 
 // Importing custom modules
 import { user_info, user_statistic, user_words } from "./MOCKdata.js";
-import { calculateXpForNextLevel } from "./funcs.js";
+import { calculateXpForNextLevel, addExperience } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
+import { createTables } from "./pgTables.js";
 
 class AppError extends Error {
   constructor(message, statusCode) {
@@ -27,18 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// Ensure tables are created on server start
-async function initializeDatabase() {
-  try {
-    await createTables();
-    console.log("Database setup complete");
-  } catch (err) {
-    console.error("Error setting up database:", err);
-  }
-}
-
-// initializeDatabase();
-
 // Session middleware configuration
 app.use(
   session({
@@ -52,6 +41,18 @@ app.use(
 // Initialize Passport.js for authentication
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Ensure tables are created on server start
+async function initializeDatabase() {
+  try {
+    await createTables();
+    console.log("Database setup complete");
+  } catch (err) {
+    console.error("Error setting up database:", err);
+  }
+}
+
+initializeDatabase();
 
 // Google OAuth 2.0 strategy for authentication
 passport.use(
@@ -115,7 +116,7 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
-// Google OAuth routes
+// ____________________Google OAuth routes
 app.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -146,6 +147,8 @@ app.get("/auth/logout", (req, res) => {
     }
   });
 });
+
+//_______________________________________________
 
 app.post("/correct_answer", async (req, res, next) => {
   try {
