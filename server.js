@@ -35,6 +35,7 @@ async function initializeDatabase() {
     console.error("Error setting up database:", err);
   }
 }
+initializeDatabase();
 
 // 3. Middleware Setup
 app.use(express.json());
