@@ -69,23 +69,13 @@ passport.use(
       try {
         let apiResp = await getUser(profile.emails[0].value);
         console.log("........apeResp.....\n",profile.emails[0].value);
-        // let apiResp = {
-        //   user_name: "Den Ver",
-        //   email: "den@ver.com",
-        //   ava: "https://img-new.cgtrader.com/items/4519089/96a7e7a37b/large/mage-wizard-avatar-3d-icon-3d-model-96a7e7a37b.jpg",
-        // };
+
         if (!apiResp) {
             const newUser = await regUser({
               user_name: profile.name.givenName,
               email: profile.emails[0].value,
               ava: profile.photos[0].value,
             });
-          // const newUser = {
-          //   user_name: profile.name.givenName,
-          //   email: profile.emails[0].value,
-          //   ava: profile.photos[0].value,
-          // };
-          console.log(".......newUser.......\n",newUser);
           cb(null, newUser);
         } else {
           cb(null, apiResp); // User already exists
