@@ -10,13 +10,41 @@ import axios from "axios";
 import { user_info, user_statistic, user_words } from "./MOCKdata.js";
 import { calculateXpForNextLevel, addExperience } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
-import { createTables } from "./pgTables.js";
+import { createTables, pool } from "./pgTables.js";
 import { getUser,regUser } from "./apiCalls.js";
 
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
     this.statusCode = statusCode;
+  }
+}
+
+
+// Middleware to start tracking user session
+async function startSession(req, res, next) {
+  if (req.isAuthenticated()) {
+      const userId = req.user.id;
+
+      try {
+          // Start a new session record
+          const { rows } = await pool.query(
+              `INSERT INTO sessions (user_id, played_at, experience_gained, words_played, words_guessed_correctly, time_played) 
+              VALUES ($1, NOW(), 0, 0, 0, 0) RETURNING id`,
+              [userId]
+          );
+
+          // Store session ID in the user's session object
+          req.session.sessionId = rows[0].id;
+          req.session.startTime = Date.now();
+          console.log(".......req.session......\n",req.session);
+
+          next();
+      } catch (err) {
+          next(new AppError("Failed to start session", 500));
+      }
+  } else {
+      next(); // Continue if not authenticated
   }
 }
 
@@ -68,7 +96,6 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       try {
         let apiResp = await getUser(profile.emails[0].value);
-        console.log("........apeResp.....\n",profile.emails[0].value);
 
         if (!apiResp) {
             const newUser = await regUser({
@@ -97,6 +124,7 @@ passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
 
+
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -114,7 +142,7 @@ app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    // prompt: "consent", //uncomment for user login.
+    prompt: "consent", //uncomment for user login.
   })
 );
 
@@ -123,23 +151,56 @@ app.get(
   passport.authenticate("google", {
     failureRedirect: "/login",
   }),
+  startSession, // Start the session after successful authentication
   (req, res) => {
     res.redirect("/");
   }
 );
 
-app.get("/auth/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.error(err);
-      res.redirect("/");
-    } else {
-      req.session.destroy(() => {
-        res.redirect("/auth/google");
+async function endSession(req) {
+  if (req.isAuthenticated() && req.session.sessionId) {
+      const sessionId = req.session.sessionId;
+      console.log("........logout.....: ",req.session);
+      const endTime = Date.now();
+      const timePlayed = Math.floor((endTime - req.session.startTime) / 60000); // in minutes
+      // const experienceGained = calculateExperience(req.user); // Implement your logic here
+      const experienceGained = 100;
+      // const wordsPlayed = calculateWordsPlayed(req.user); // Implement your logic here
+      const wordsPlayed = 50;
+      // const wordsGuessedCorrectly = calculateWordsGuessedCorrectly(req.user); // Implement your logic here
+      const wordsGuessedCorrectly = 40;
+
+      try {
+          await pool.query(
+              `UPDATE sessions 
+               SET experience_gained = $1, words_played = $2, words_guessed_correctly = $3, time_played = $4 
+               WHERE id = $5`,
+              [experienceGained, wordsPlayed, wordsGuessedCorrectly, timePlayed, sessionId]
+          );
+      } catch (err) {
+          console.error("Failed to end session: ", err.message);
+      }
+  }
+}
+
+app.get("/auth/logout", async (req, res) => {
+  try {
+      await endSession(req);
+      req.logout((err) => {
+          if (err) {
+              console.error(err);
+              res.redirect("/");
+          } else {
+              req.session.destroy(() => {
+                  res.redirect("/auth/google");
+              });
+          }
       });
-    }
-  });
+  } catch (err) {
+      res.redirect("/auth/google");
+  }
 });
+
 
 //_______________________________________________
 
