@@ -7,11 +7,11 @@ import dotenv from "dotenv";
 import axios from "axios";
 
 // Custom modules
-import { user_info, user_statistic, user_words } from "./MOCKdata.js";
-import { calculateXpForNextLevel, addExperience } from "./funcs.js";
+import { user_statistic, user_words } from "./MOCKdata.js";
+import { calculateXpForNextLevel, addExperience, subtractExperience } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
 import { createTables, pool } from "./pgTables.js";
-import { getUser, regUser } from "./apiCalls.js";
+import { getUser, regUser, getUserInfo, updateUserInfo } from "./apiCalls.js";
 
 dotenv.config();
 
@@ -72,6 +72,10 @@ async function startSession(req, res, next) {
       // Store session ID in the user's session object
       req.session.sessionId = rows[0].id;
       req.session.startTime = Date.now();
+      req.session.experienceGained = 0;
+      req.session.wordsPlayed = 0;
+      req.session.wordsGuessedCorrectly = 0;
+      req.session.user_info = await getUserInfo(userId);
       next();
     } catch (err) {
       next(new AppError("Failed to start session", 500));
@@ -141,16 +145,22 @@ async function endSession(req) {
     const endTime = Date.now();
     const timePlayed = Math.floor((endTime - req.session.startTime) / 60000); // in minutes
 
-    const experienceGained = 100; // Example value; replace with actual logic
-    const wordsPlayed = 50; // Example value; replace with actual logic
-    const wordsGuessedCorrectly = 40; // Example value; replace with actual logic
+    const experienceGained = req.session.experienceGained; // Example value; replace with actual logic
+    const wordsPlayed = req.session.wordsPlayed; // Example value; replace with actual logic
+    const wordsGuessedCorrectly = req.session.wordsGuessedCorrectly; // Example value; replace with actual logic
 
     try {
       await pool.query(
         `UPDATE sessions 
          SET experience_gained = $1, words_played = $2, words_guessed_correctly = $3, time_played = $4 
          WHERE id = $5`,
-        [experienceGained, wordsPlayed, wordsGuessedCorrectly, timePlayed, sessionId]
+        [
+          experienceGained,
+          wordsPlayed,
+          wordsGuessedCorrectly,
+          timePlayed,
+          sessionId,
+        ]
       );
     } catch (err) {
       console.error("Failed to end session: ", err.message);
@@ -183,6 +193,7 @@ app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const user = req.user;
+      const user_info = req.session.user_info;
       const total_exp = calculateXpForNextLevel(user_info.level);
       const { selectedWord, additionalWords } =
         await getRandomWordAndTranslations("words.csv");
@@ -207,7 +218,19 @@ app.get("/", async (req, res, next) => {
 app.post("/correct_answer", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
-      console.log("correct guessed: ", req.body);
+      const userId = req.user.id;
+      const user_info = req.session.user_info;
+      const selectedWord = req.body;
+      // Parse the JSON string into a JavaScript object
+      const wordDetails = JSON.parse(selectedWord.selectedWord);
+
+      // Extract the "Difficulty" value and convert it to an integer
+      const difficulty = parseInt(wordDetails.Difficulty, 10);
+      req.session.wordsPlayed = req.session.wordsPlayed + 1;
+      req.session.experienceGained = req.session.experienceGained + difficulty;
+      req.session.wordsGuessedCorrectly = req.session.wordsGuessedCorrectly + 1;
+      req.session.user_info = addExperience(user_info,difficulty);
+      updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp)
       res.redirect("/");
     } else {
       res.redirect("/auth/google");
@@ -220,7 +243,12 @@ app.post("/correct_answer", async (req, res, next) => {
 app.post("/wrong_answer", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
-      console.log("wrong guessed: ", req.body);
+      const user_info = req.session.user_info;
+      const userId = req.user.id;
+      req.session.wordsPlayed = req.session.wordsPlayed + 1;
+      req.session.experienceGained = req.session.experienceGained - 1;
+      req.session.user_info = subtractExperience(user_info, 1);
+      updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp)
       res.redirect("/");
     } else {
       res.redirect("/auth/google");

@@ -16,5 +16,17 @@ function calculateXpForNextLevel(level) {
     return user_info;
   }
 
-
-  export {calculateXpForNextLevel, addExperience}
+  function subtractExperience(user_info, xpLost) {
+    // Subtract XP from the user's current XP
+    user_info.current_xp -= xpLost;
+  
+    // Ensure current XP does not fall below zero
+    if (user_info.current_xp < 0) {
+      user_info.current_xp = 0;
+    }
+  
+    // Do not modify the level, even if XP falls below the level threshold
+  
+    return user_info;
+  }
+  export {calculateXpForNextLevel, addExperience, subtractExperience}

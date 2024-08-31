@@ -101,21 +101,32 @@
         <!-- Display XP Progress -->
         <div class="xp-info mt-2">
           <p>XP: <%= user_info.current_xp %> / <%= total_exp %></p>
-
+        
           <!-- XP Progress Bar -->
           <div class="progress" style="height: 20px">
             <div
               class="progress-bar"
               role="progressbar"
-              style="width: <%= (user_info.current_xp / total_exp) * 100 %>%"
+              style="width: <% 
+                if (total_exp > 0) { 
+                  %><%= (user_info.current_xp / total_exp) * 100 %><% 
+                } else { 
+                  %>0<% 
+                } 
+              %>%"
               aria-valuenow="<%= user_info.current_xp %>"
               aria-valuemin="0"
               aria-valuemax="<%= total_exp %>"
             >
-              <%= Math.round((user_info.current_xp / total_exp) * 100) %>%
+              <% if (total_exp > 0) { %>
+                <%= Math.round((user_info.current_xp / total_exp) * 100) %>%
+              <% } else { %>
+                0%
+              <% } %>
             </div>
           </div>
         </div>
+        
 
         <a href="/auth/logout" class="btn btn-danger mt-3">Logout</a>
         <% } else { %>

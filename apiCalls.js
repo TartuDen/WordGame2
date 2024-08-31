@@ -40,7 +40,55 @@ async function regUser(user) {
       throw new Error("Internal server error");
     }
   }
-  // Remove the pool.end() call here
 }
 
-export { getUser, regUser };
+// Function to get user information
+async function getUserInfo(userId) {
+  try {
+      // Try to get the user information
+      const { rows } = await pool.query(
+          `SELECT * FROM user_info WHERE user_id = $1`,
+          [userId]
+      );
+
+      if (rows.length === 0) {
+          // If user info is not found, create a new entry with level 0 and current_xp 0
+          const { rows: newRows } = await pool.query(
+              `INSERT INTO user_info (user_id, level, current_xp)
+               VALUES ($1, $2, $3)
+               RETURNING *`,
+              [userId, 0, 0]
+          );
+          return newRows[0]; // Return the newly created user info
+      }
+
+      return rows[0]; // Return the found user info
+  } catch (err) {
+      console.error('Error getting or creating user info:', err.message);
+      throw err;
+  }
+}
+
+// Function to update user information
+async function updateUserInfo(userId, level, currentXp) {
+  try {
+      const result = await pool.query(
+          `UPDATE user_info
+           SET level = $1, current_xp = $2
+           WHERE user_id = $3
+           RETURNING *`,
+          [level, currentXp, userId]
+      );
+
+      if (result.rowCount === 0) {
+          throw new Error('User info not found or update failed');
+      }
+
+      return result.rows[0];
+  } catch (err) {
+      console.error('Error updating user info:', err.message);
+      throw err;
+  }
+}
+
+export { getUser, regUser, getUserInfo, updateUserInfo };
