@@ -1,4 +1,4 @@
-// index.js
+// 1. Environment Setup
 import express from "express";
 import session from "express-session";
 import passport from "passport";
@@ -6,13 +6,19 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
 import axios from "axios";
 
-// Importing custom modules
+// Custom modules
 import { user_info, user_statistic, user_words } from "./MOCKdata.js";
 import { calculateXpForNextLevel, addExperience } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
 import { createTables, pool } from "./pgTables.js";
-import { getUser,regUser } from "./apiCalls.js";
+import { getUser, regUser } from "./apiCalls.js";
 
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 8081;
+
+// 2. Database and Error Handling
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -20,39 +26,17 @@ class AppError extends Error {
   }
 }
 
-
-// Middleware to start tracking user session
-async function startSession(req, res, next) {
-  if (req.isAuthenticated()) {
-      const userId = req.user.id;
-
-      try {
-          // Start a new session record
-          const { rows } = await pool.query(
-              `INSERT INTO sessions (user_id, played_at, experience_gained, words_played, words_guessed_correctly, time_played) 
-              VALUES ($1, NOW(), 0, 0, 0, 0) RETURNING id`,
-              [userId]
-          );
-
-          // Store session ID in the user's session object
-          req.session.sessionId = rows[0].id;
-          req.session.startTime = Date.now();
-          console.log(".......req.session......\n",req.session);
-
-          next();
-      } catch (err) {
-          next(new AppError("Failed to start session", 500));
-      }
-  } else {
-      next(); // Continue if not authenticated
+// Ensure tables are created on server start
+async function initializeDatabase() {
+  try {
+    await createTables();
+    console.log("Database setup complete");
+  } catch (err) {
+    console.error("Error setting up database:", err);
   }
 }
 
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 8081;
-
+// 3. Middleware Setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -71,19 +55,44 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Ensure tables are created on server start
-async function initializeDatabase() {
-  try {
-    await createTables();
-    console.log("Database setup complete");
-  } catch (err) {
-    console.error("Error setting up database:", err);
+// Middleware to start tracking user session
+async function startSession(req, res, next) {
+  if (req.isAuthenticated()) {
+    const userId = req.user.id;
+
+    try {
+      // Start a new session record
+      const { rows } = await pool.query(
+        `INSERT INTO sessions (user_id, played_at, experience_gained, words_played, words_guessed_correctly, time_played) 
+        VALUES ($1, NOW(), 0, 0, 0, 0) RETURNING id`,
+        [userId]
+      );
+
+      // Store session ID in the user's session object
+      req.session.sessionId = rows[0].id;
+      req.session.startTime = Date.now();
+      next();
+    } catch (err) {
+      next(new AppError("Failed to start session", 500));
+    }
+  } else {
+    next(); // Continue if not authenticated
   }
 }
 
-initializeDatabase();
+// Error handling middleware
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  console.error(`[ERROR] ${statusCode} - ${message} - ${err.stack}`);
+  res.status(statusCode).json({
+    status: "error",
+    statusCode,
+    message,
+  });
+};
 
-// Google OAuth 2.0 strategy for authentication
+// 4. Passport.js Strategies and Session Management
 passport.use(
   "google",
   new GoogleStrategy(
@@ -98,11 +107,11 @@ passport.use(
         let apiResp = await getUser(profile.emails[0].value);
 
         if (!apiResp) {
-            const newUser = await regUser({
-              user_name: profile.name.givenName,
-              email: profile.emails[0].value,
-              ava: profile.photos[0].value,
-            });
+          const newUser = await regUser({
+            user_name: profile.name.givenName,
+            email: profile.emails[0].value,
+            ava: profile.photos[0].value,
+          });
           cb(null, newUser);
         } else {
           cb(null, apiResp); // User already exists
@@ -124,25 +133,37 @@ passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
 
+// Function to end a session and record stats
+async function endSession(req) {
+  if (req.isAuthenticated() && req.session.sessionId) {
+    const sessionId = req.session.sessionId;
+    const endTime = Date.now();
+    const timePlayed = Math.floor((endTime - req.session.startTime) / 60000); // in minutes
 
-// Error handling middleware
-const errorHandler = (err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  console.error(`[ERROR] ${statusCode} - ${message} - ${err.stack}`);
-  res.status(statusCode).json({
-    status: "error",
-    statusCode,
-    message,
-  });
-};
+    const experienceGained = 100; // Example value; replace with actual logic
+    const wordsPlayed = 50; // Example value; replace with actual logic
+    const wordsGuessedCorrectly = 40; // Example value; replace with actual logic
 
+    try {
+      await pool.query(
+        `UPDATE sessions 
+         SET experience_gained = $1, words_played = $2, words_guessed_correctly = $3, time_played = $4 
+         WHERE id = $5`,
+        [experienceGained, wordsPlayed, wordsGuessedCorrectly, timePlayed, sessionId]
+      );
+    } catch (err) {
+      console.error("Failed to end session: ", err.message);
+    }
+  }
+}
+
+// 5. Route Definitions
 // ____________________Google OAuth routes
 app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "consent", //uncomment for user login.
+    prompt: "consent",
   })
 );
 
@@ -157,52 +178,30 @@ app.get(
   }
 );
 
-async function endSession(req) {
-  if (req.isAuthenticated() && req.session.sessionId) {
-      const sessionId = req.session.sessionId;
-      console.log("........logout.....: ",req.session);
-      const endTime = Date.now();
-      const timePlayed = Math.floor((endTime - req.session.startTime) / 60000); // in minutes
-      // const experienceGained = calculateExperience(req.user); // Implement your logic here
-      const experienceGained = 100;
-      // const wordsPlayed = calculateWordsPlayed(req.user); // Implement your logic here
-      const wordsPlayed = 50;
-      // const wordsGuessedCorrectly = calculateWordsGuessedCorrectly(req.user); // Implement your logic here
-      const wordsGuessedCorrectly = 40;
-
-      try {
-          await pool.query(
-              `UPDATE sessions 
-               SET experience_gained = $1, words_played = $2, words_guessed_correctly = $3, time_played = $4 
-               WHERE id = $5`,
-              [experienceGained, wordsPlayed, wordsGuessedCorrectly, timePlayed, sessionId]
-          );
-      } catch (err) {
-          console.error("Failed to end session: ", err.message);
-      }
-  }
-}
-
-app.get("/auth/logout", async (req, res) => {
+app.get("/", async (req, res, next) => {
   try {
-      await endSession(req);
-      req.logout((err) => {
-          if (err) {
-              console.error(err);
-              res.redirect("/");
-          } else {
-              req.session.destroy(() => {
-                  res.redirect("/auth/google");
-              });
-          }
+    if (req.isAuthenticated()) {
+      const user = req.user;
+      const total_exp = calculateXpForNextLevel(user_info.level);
+      const { selectedWord, additionalWords } =
+        await getRandomWordAndTranslations("words.csv");
+
+      res.status(200).render("index.ejs", {
+        user,
+        user_info,
+        user_statistic,
+        user_words,
+        total_exp,
+        selectedWord,
+        additionalWords,
       });
-  } catch (err) {
+    } else {
       res.redirect("/auth/google");
+    }
+  } catch (err) {
+    next(err);
   }
 });
-
-
-//_______________________________________________
 
 app.post("/correct_answer", async (req, res, next) => {
   try {
@@ -230,38 +229,29 @@ app.post("/wrong_answer", async (req, res, next) => {
   }
 });
 
-app.get("/", async (req, res, next) => {
+app.get("/auth/logout", async (req, res) => {
   try {
-    if (req.isAuthenticated()) {
-      const user = req.user;
-      const total_exp = calculateXpForNextLevel(user_info.level);
-      const { selectedWord, additionalWords } =
-        await getRandomWordAndTranslations("words.csv");
-
-      res
-        .status(200)
-        .render("index.ejs", {
-          user,
-          user_info,
-          user_statistic,
-          user_words,
-          total_exp,
-          selectedWord,
-          additionalWords,
+    await endSession(req);
+    req.logout((err) => {
+      if (err) {
+        console.error(err);
+        res.redirect("/");
+      } else {
+        req.session.destroy(() => {
+          res.redirect("/auth/google");
         });
-    } else {
-      res.redirect("/auth/google");
-    }
+      }
+    });
   } catch (err) {
-    next(err);
+    res.redirect("/auth/google");
   }
 });
 
-// Register the error handler middleware
-app.use(errorHandler);
-
-// Start the server
+// 6. Server Initialization
 app.listen(PORT, (err) => {
   if (err) throw err;
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Use the error handler middleware
+app.use(errorHandler);
