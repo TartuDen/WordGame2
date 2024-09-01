@@ -16,35 +16,23 @@ const pool = new Pool({
 });
 
 function displayUserProgressInTerminal(userStats) {
-  const maxLevel = Math.max(
-    ...userStats.progressData.map((data) => data.level)
-  );
-  const maxExperience = Math.max(
-    ...userStats.progressData.map((data) => data.experience)
-  );
-
-  console.log("\nUser Progress Over Time\n");
-
-  // Display Levels Progression
-  console.log("Levels:");
-  userStats.progressData.forEach((data, index) => {
-    const levelBar = "■".repeat(data.level);
-    console.log(
-      `${data.date.toDateString()}: [${levelBar}] Level ${data.level}`
+    const maxExperience = Math.max(
+      ...userStats.progressData.map((data) => data.experience)
     );
-  });
-
-  // Display Experience Progression
-  console.log("\nExperience Gained:");
-  userStats.progressData.forEach((data, index) => {
-    const expBar = "■".repeat((data.experience / maxExperience) * 50); // Scale to fit terminal width
-    console.log(
-      `${data.date.toDateString()}: [${expBar}] ${data.experience} XP`
-    );
-  });
-
-  console.log("\n");
-}
+  
+    console.log("\nUser Progress Over Time\n");
+  
+    userStats.progressData.forEach((data, index) => {
+      const levelBar = "■".repeat(data.level);
+      const expBar = "■".repeat((data.experience / maxExperience) * 50); // Scale to fit terminal width
+  
+      // Display the date and level on the same line
+      console.log(`${data.date.toDateString()}:\n[${levelBar}] Level ${data.level}`);
+  
+      // Display the XP bar on the next line
+      console.log(`[${expBar}] ${data.experience} XP\n`);
+    });
+  }
 
 async function getUserStats(userId) {
   try {
