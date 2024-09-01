@@ -10,7 +10,7 @@ import axios from "axios";
 import { user_statistic, user_words } from "./MOCKdata.js";
 import { calculateXpForNextLevel, addExperience, subtractExperience } from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
-import { createTables, pool } from "./pgTables.js";
+import { createTables, pool, showUserStats } from "./pgTables.js";
 import { getUser, regUser, getUserInfo, updateUserInfo } from "./apiCalls.js";
 
 dotenv.config();
@@ -60,7 +60,7 @@ app.use(passport.session());
 async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
-
+    await  showUserStats(userId);
     try {
       // Start a new session record
       const { rows } = await pool.query(
@@ -184,6 +184,7 @@ app.get(
     failureRedirect: "/login",
   }),
   startSession, // Start the session after successful authentication
+ 
   (req, res) => {
     res.redirect("/");
   }
