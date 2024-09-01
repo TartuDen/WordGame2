@@ -8,10 +8,21 @@ import axios from "axios";
 
 // Custom modules
 import { user_statistic, user_words } from "./MOCKdata.js";
-import { calculateXpForNextLevel, addExperience, subtractExperience } from "./funcs.js";
+import {
+  calculateXpForNextLevel,
+  addExperience,
+  subtractExperience,
+} from "./funcs.js";
 import getRandomWordAndTranslations from "./word_selector.js";
 import { createTables, pool, showUserStats } from "./pgTables.js";
-import { getUser, regUser, getUserInfo, updateUserInfo } from "./apiCalls.js";
+import {
+  getUser,
+  regUser,
+  getUserInfo,
+  updateUserInfo,
+  updateCorrectAnswer,
+  updateWrongAnswer,
+} from "./apiCalls.js";
 
 dotenv.config();
 
@@ -60,7 +71,7 @@ app.use(passport.session());
 async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
-    await  showUserStats(userId);
+    await showUserStats(userId);
     try {
       // Start a new session record
       const { rows } = await pool.query(
@@ -184,7 +195,7 @@ app.get(
     failureRedirect: "/login",
   }),
   startSession, // Start the session after successful authentication
- 
+
   (req, res) => {
     res.redirect("/");
   }
@@ -222,16 +233,25 @@ app.post("/correct_answer", async (req, res, next) => {
       const userId = req.user.id;
       const user_info = req.session.user_info;
       const selectedWord = req.body;
-      // Parse the JSON string into a JavaScript object
       const wordDetails = JSON.parse(selectedWord.selectedWord);
-
-      // Extract the "Difficulty" value and convert it to an integer
       const difficulty = parseInt(wordDetails.Difficulty, 10);
-      req.session.wordsPlayed = req.session.wordsPlayed + 1;
-      req.session.experienceGained = req.session.experienceGained + difficulty;
-      req.session.wordsGuessedCorrectly = req.session.wordsGuessedCorrectly + 1;
-      req.session.user_info = addExperience(user_info,difficulty);
-      updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp)
+      const word = wordDetails["English Word"];
+
+      req.session.wordsPlayed += 1;
+      req.session.experienceGained += difficulty;
+      req.session.wordsGuessedCorrectly += 1;
+      req.session.user_info = addExperience(user_info, difficulty);
+
+      // Update user_info
+      await updateUserInfo(
+        userId,
+        req.session.user_info.level,
+        req.session.user_info.current_xp
+      );
+
+      // Update the user_words table for the correct answer
+      await updateCorrectAnswer(userId, word);
+
       res.redirect("/");
     } else {
       res.redirect("/auth/google");
@@ -244,12 +264,26 @@ app.post("/correct_answer", async (req, res, next) => {
 app.post("/wrong_answer", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
-      const user_info = req.session.user_info;
       const userId = req.user.id;
-      req.session.wordsPlayed = req.session.wordsPlayed + 1;
-      req.session.experienceGained = req.session.experienceGained - 1;
+      const user_info = req.session.user_info;
+      const selectedWord = req.body;
+      const wordDetails = JSON.parse(selectedWord.selectedWord);
+      const word = wordDetails["English Word"];
+
+      req.session.wordsPlayed += 1;
+      req.session.experienceGained -= 1;
       req.session.user_info = subtractExperience(user_info, 1);
-      updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp)
+
+      // Update user_info
+      await updateUserInfo(
+        userId,
+        req.session.user_info.level,
+        req.session.user_info.current_xp
+      );
+
+      // Update the user_words table for the wrong answer
+      await updateWrongAnswer(userId, word);
+
       res.redirect("/");
     } else {
       res.redirect("/auth/google");

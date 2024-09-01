@@ -91,4 +91,38 @@ async function updateUserInfo(userId, level, currentXp) {
   }
 }
 
-export { getUser, regUser, getUserInfo, updateUserInfo };
+async function updateCorrectAnswer(userId, word) {
+  try {
+    // Upsert into user_words table for a correct answer
+    await pool.query(`
+      INSERT INTO user_words (user_id, word, guessed_correctly, guessed_wrong)
+      VALUES ($1, $2, 1, 0)
+      ON CONFLICT (user_id, word)
+      DO UPDATE SET guessed_correctly = user_words.guessed_correctly + 1;
+    `, [userId, word]);
+  } catch (err) {
+    console.error('Error updating correct answer:', err.message);
+    throw err;
+  }
+}
+
+
+async function updateWrongAnswer(userId, word) {
+  try {
+    // Upsert into user_words table for a wrong answer
+    await pool.query(`
+      INSERT INTO user_words (user_id, word, guessed_wrong, guessed_correctly)
+      VALUES ($1, $2, 1, 0)
+      ON CONFLICT (user_id, word)
+      DO UPDATE SET guessed_wrong = user_words.guessed_wrong + 1;
+    `, [userId, word]);
+  } catch (err) {
+    console.error('Error updating wrong answer:', err.message);
+    throw err;
+  }
+}
+
+
+
+
+export { getUser, regUser, getUserInfo, updateUserInfo, updateCorrectAnswer, updateWrongAnswer };

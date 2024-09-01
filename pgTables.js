@@ -47,56 +47,58 @@ function displayUserProgressInTerminal(userStats) {
 }
 
 async function getUserStats(userId) {
-    try {
-        // Fetch all sessions for the user
-        const { rows } = await pool.query(`
+  try {
+    // Fetch all sessions for the user
+    const { rows } = await pool.query(
+      `
             SELECT played_at, experience_gained, words_played, words_guessed_correctly, time_played 
             FROM sessions 
             WHERE user_id = $1 
             ORDER BY played_at ASC
-        `, [userId]);
+        `,
+      [userId]
+    );
 
-        if (rows.length === 0) {
-            throw new Error('No session data found for this user');
-        }
-
-        let progressData = [];
-        let totalWordsPlayed = 0;
-        let totalWordsGuessedCorrectly = 0;
-        let totalTimePlayed = 0;
-        let currentLevel = 0;
-        let currentXp = 0;
-
-        for (let session of rows) {
-            totalWordsPlayed += session.words_played;
-            totalWordsGuessedCorrectly += session.words_guessed_correctly;
-            totalTimePlayed += session.time_played;
-
-            currentXp += session.experience_gained;
-            while (currentXp >= calculateXpForNextLevel(currentLevel)) {
-                currentXp -= calculateXpForNextLevel(currentLevel);
-                currentLevel += 1;
-            }
-
-            progressData.push({
-                date: session.played_at,
-                level: currentLevel,
-                experience: currentXp
-            });
-        }
-
-        return {
-            progressData,
-            totalWordsPlayed,
-            totalWordsGuessedCorrectly,
-            totalTimePlayed
-        };
-    } catch (err) {
-        console.error('Error fetching user stats:', err.message);
-        throw err;
+    if (rows.length === 0) {
+      throw new Error("No session data found for this user");
     }
-}
 
+    let progressData = [];
+    let totalWordsPlayed = 0;
+    let totalWordsGuessedCorrectly = 0;
+    let totalTimePlayed = 0;
+    let currentLevel = 0;
+    let currentXp = 0;
+
+    for (let session of rows) {
+      totalWordsPlayed += session.words_played;
+      totalWordsGuessedCorrectly += session.words_guessed_correctly;
+      totalTimePlayed += session.time_played;
+
+      currentXp += session.experience_gained;
+      while (currentXp >= calculateXpForNextLevel(currentLevel)) {
+        currentXp -= calculateXpForNextLevel(currentLevel);
+        currentLevel += 1;
+      }
+
+      progressData.push({
+        date: session.played_at,
+        level: currentLevel,
+        experience: currentXp,
+      });
+    }
+
+    return {
+      progressData,
+      totalWordsPlayed,
+      totalWordsGuessedCorrectly,
+      totalTimePlayed,
+    };
+  } catch (err) {
+    console.error("Error fetching user stats:", err.message);
+    throw err;
+  }
+}
 
 async function showUserStats(userId) {
   try {
@@ -157,14 +159,15 @@ async function createTables() {
 
     // Create the user_words table
     await pool.query(`
-            CREATE TABLE IF NOT EXISTS user_words (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-                word VARCHAR(100) NOT NULL,
-                guessed_correctly INTEGER NOT NULL,
-                guessed_wrong INTEGER NOT NULL
-            );
-        `);
+    CREATE TABLE IF NOT EXISTS user_words (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        word VARCHAR(100) NOT NULL,
+        guessed_correctly INTEGER NOT NULL,
+        guessed_wrong INTEGER NOT NULL,
+        CONSTRAINT user_word_unique UNIQUE(user_id, word)
+    );
+`);
 
     console.log("Tables created successfully");
   } catch (error) {
