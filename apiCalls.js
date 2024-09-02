@@ -45,84 +45,116 @@ async function regUser(user) {
 // Function to get user information
 async function getUserInfo(userId) {
   try {
-      // Try to get the user information
-      const { rows } = await pool.query(
-          `SELECT * FROM user_info WHERE user_id = $1`,
-          [userId]
-      );
+    // Try to get the user information
+    const { rows } = await pool.query(
+      `SELECT * FROM user_info WHERE user_id = $1`,
+      [userId]
+    );
 
-      if (rows.length === 0) {
-          // If user info is not found, create a new entry with level 0 and current_xp 0
-          const { rows: newRows } = await pool.query(
-              `INSERT INTO user_info (user_id, level, current_xp)
+    if (rows.length === 0) {
+      // If user info is not found, create a new entry with level 0 and current_xp 0
+      const { rows: newRows } = await pool.query(
+        `INSERT INTO user_info (user_id, level, current_xp)
                VALUES ($1, $2, $3)
                RETURNING *`,
-              [userId, 0, 0]
-          );
-          return newRows[0]; // Return the newly created user info
-      }
+        [userId, 0, 0]
+      );
+      return newRows[0]; // Return the newly created user info
+    }
 
-      return rows[0]; // Return the found user info
+    return rows[0]; // Return the found user info
   } catch (err) {
-      console.error('Error getting or creating user info:', err.message);
-      throw err;
+    console.error("Error getting or creating user info:", err.message);
+    throw err;
   }
 }
 
 // Function to update user information
 async function updateUserInfo(userId, level, currentXp) {
   try {
-      const result = await pool.query(
-          `UPDATE user_info
+    const result = await pool.query(
+      `UPDATE user_info
            SET level = $1, current_xp = $2
            WHERE user_id = $3
            RETURNING *`,
-          [level, currentXp, userId]
-      );
+      [level, currentXp, userId]
+    );
 
-      if (result.rowCount === 0) {
-          throw new Error('User info not found or update failed');
-      }
+    if (result.rowCount === 0) {
+      throw new Error("User info not found or update failed");
+    }
 
-      return result.rows[0];
+    return result.rows[0];
   } catch (err) {
-      console.error('Error updating user info:', err.message);
-      throw err;
+    console.error("Error updating user info:", err.message);
+    throw err;
   }
 }
 
 async function updateCorrectAnswer(userId, word) {
   try {
     // Upsert into user_words table for a correct answer
-    await pool.query(`
+    await pool.query(
+      `
       INSERT INTO user_words (user_id, word, guessed_correctly, guessed_wrong)
       VALUES ($1, $2, 1, 0)
       ON CONFLICT (user_id, word)
       DO UPDATE SET guessed_correctly = user_words.guessed_correctly + 1;
-    `, [userId, word]);
+    `,
+      [userId, word]
+    );
   } catch (err) {
-    console.error('Error updating correct answer:', err.message);
+    console.error("Error updating correct answer:", err.message);
     throw err;
   }
 }
-
 
 async function updateWrongAnswer(userId, word) {
   try {
     // Upsert into user_words table for a wrong answer
-    await pool.query(`
+    await pool.query(
+      `
       INSERT INTO user_words (user_id, word, guessed_wrong, guessed_correctly)
       VALUES ($1, $2, 1, 0)
       ON CONFLICT (user_id, word)
       DO UPDATE SET guessed_wrong = user_words.guessed_wrong + 1;
-    `, [userId, word]);
+    `,
+      [userId, word]
+    );
   } catch (err) {
-    console.error('Error updating wrong answer:', err.message);
+    console.error("Error updating wrong answer:", err.message);
     throw err;
   }
 }
 
+async function userKnownWords(userId) {
+  try {
+    // Query the database to get words that the user has already interacted with
+    const userWordsQuery = `
+            SELECT word 
+            FROM user_words 
+            WHERE user_id = $1;
+        `;
+    const { rows: userWords } = await pool.query(userWordsQuery, [userId]);
+
+    // Extract the words from the query result
+    const userKnownWords = userWords.map((uw) => uw.word);
+
+    // Return the list of known words
+    return userKnownWords;
+  } catch (error) {
+    console.error('Error fetching user known words:', error);
+    throw error;
+  }
+}
 
 
-
-export { getUser, regUser, getUserInfo, updateUserInfo, updateCorrectAnswer, updateWrongAnswer };
+export {
+  getUser,
+  regUser,
+  getUserInfo,
+  updateUserInfo,
+  updateCorrectAnswer,
+  updateWrongAnswer,
+  userKnownWords,
+};

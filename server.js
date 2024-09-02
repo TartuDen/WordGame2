@@ -22,6 +22,7 @@ import {
   updateUserInfo,
   updateCorrectAnswer,
   updateWrongAnswer,
+  userKnownWords,
 } from "./apiCalls.js";
 
 dotenv.config();
@@ -72,6 +73,8 @@ async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     await showUserStats(userId);
+    const knownWords = await userKnownWords(userId);
+    req.session.knownWords=knownWords;
     try {
       // Start a new session record
       const { rows } = await pool.query(
@@ -208,7 +211,7 @@ app.get("/", async (req, res, next) => {
       const user_info = req.session.user_info;
       const total_exp = calculateXpForNextLevel(user_info.level);
       const { selectedWord, additionalWords } =
-        await getRandomWordAndTranslations("words.csv");
+        await getRandomWordAndTranslations(req.session.knownWords,"words.csv");
 
       res.status(200).render("index.ejs", {
         user,
