@@ -5,7 +5,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-async function getRandomWordAndTranslations(knownWords, filePath) {
+async function getRandomWordAndTranslations(userSimpleWords, filePath, nextWord = null) {
     try {
         // Step 1: Read the CSV file to get the complete word list
         const data = await fs.promises.readFile(filePath);
@@ -21,21 +21,33 @@ async function getRandomWordAndTranslations(knownWords, filePath) {
             });
         });
 
-        // Step 2: Filter out words already known to the user
-        const newWords = words.filter(word => 
-            !knownWords.includes(word['Russian Translation'])
-        );
+        let selectedWord;
 
-        if (newWords.length === 0) {
-            throw new Error('No new words available for the user.');
+        if (nextWord) {
+            // If nextWord is provided, find it in the words array by matching against the English word
+            selectedWord = words.find(word => word['English Word'] === nextWord);
+            if (!selectedWord) {
+                throw new Error('Provided nextWord not found in the word list.');
+            }
+        } else {
+            // Step 2: Filter out words already known to the user based on their Russian translations
+            const newWords = words.filter(word => 
+                !userSimpleWords.includes(word['English Word'])
+            );
+
+            if (newWords.length === 0) {
+                throw new Error('No new words available for the user.');
+            }
+
+            // Step 3: Randomly select a new word from the remaining words
+            const selectedWordIndex = getRandomInt(newWords.length);
+            selectedWord = newWords[selectedWordIndex];
         }
 
-        // Step 3: Randomly select a new word from the remaining words
-        const selectedWordIndex = getRandomInt(newWords.length);
-        const selectedWord = newWords[selectedWordIndex];
+        // Step 4: Get the category of the selected word
         const category = selectedWord.Category;
 
-        // Step 4: Select additional words from the same category
+        // Step 5: Select additional words from the same category
         let sameCategoryWords = words.filter(word =>
             word.Category === category && word['Russian Translation'] !== selectedWord['Russian Translation']
         );
@@ -49,9 +61,11 @@ async function getRandomWordAndTranslations(knownWords, filePath) {
 
         return { selectedWord, additionalWords };
     } catch (err) {
-        console.error('Error selecting a random word:', err);
+        console.error('Error selecting a word:', err);
         throw err;
     }
 }
+
+
 
 export default getRandomWordAndTranslations;

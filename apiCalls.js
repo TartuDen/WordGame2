@@ -131,22 +131,27 @@ async function userKnownWords(userId) {
   try {
     // Query the database to get words that the user has already interacted with
     const userWordsQuery = `
-            SELECT word 
+            SELECT word, guessed_correctly, guessed_wrong
             FROM user_words 
             WHERE user_id = $1;
         `;
     const { rows: userWords } = await pool.query(userWordsQuery, [userId]);
 
     // Extract the words from the query result
-    const userKnownWords = userWords.map((uw) => uw.word);
+    const userSimpleWords = userWords.map((uw) => uw.word);
 
-    // Return the list of known words
-    return userKnownWords;
+    // Return both the list of known words and the entire userWords object
+    return {
+      userSimpleWords,  // simplified list of words
+      userWordDetails: userWords  // detailed objects with word, guessed_correctly, and guessed_wrong
+    };
   } catch (error) {
     console.error('Error fetching user known words:', error);
     throw error;
   }
 }
+
+
 
 
 export {

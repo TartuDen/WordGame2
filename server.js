@@ -73,8 +73,9 @@ async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     await showUserStats(userId);
-    const knownWords = await userKnownWords(userId);
-    req.session.knownWords=knownWords;
+    const {userSimpleWords, userWordDetails} = await userKnownWords(userId);
+    req.session.userSimpleWords=userSimpleWords;
+    req.session.userWordDetails=userWordDetails;
     try {
       // Start a new session record
       const { rows } = await pool.query(
@@ -204,6 +205,56 @@ app.get(
   }
 );
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+async function selectWordForUser(req) {
+  try {
+    let selectedWord, additionalWords;
+
+    // Filter words where the user guessed wrongly > 20% of the time
+    const struggledWords = req.session.userWordDetails.filter((wordDetail) => {
+      const totalGuesses = wordDetail.guessed_correctly + wordDetail.guessed_wrong;
+      const wrongPercentage = wordDetail.guessed_wrong / totalGuesses;
+      return totalGuesses > 0 && wrongPercentage > 0.2;
+    });
+
+    if (req.session.wordSelectionToggle) {
+      // Toggle is true: Attempt to pick a word the user struggles with
+      if (struggledWords.length > 0) {
+        const struggledWord = struggledWords[getRandomInt(struggledWords.length)].word;
+        ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
+          req.session.userSimpleWords,
+          "words.csv",
+          struggledWord
+        ));
+      } else {
+        // No struggled words found, fallback to new word selection without specifying nextWord
+        ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
+          req.session.userSimpleWords,
+          "words.csv"
+        ));
+      }
+    } else {
+      // Toggle is false: Pick a completely new word
+      ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
+        req.session.userSimpleWords,
+        "words.csv"
+      ));
+    }
+
+    // Toggle the value for the next call
+    req.session.wordSelectionToggle = !req.session.wordSelectionToggle;
+
+    return { selectedWord, additionalWords };
+  } catch (error) {
+    console.error('Error selecting word for user:', error);
+    throw error;
+  }
+}
+
+
 app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
@@ -211,7 +262,7 @@ app.get("/", async (req, res, next) => {
       const user_info = req.session.user_info;
       const total_exp = calculateXpForNextLevel(user_info.level);
       const { selectedWord, additionalWords } =
-        await getRandomWordAndTranslations(req.session.knownWords,"words.csv");
+        await selectWordForUser(req);
 
       res.status(200).render("index.ejs", {
         user,
