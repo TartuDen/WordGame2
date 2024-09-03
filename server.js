@@ -73,9 +73,9 @@ async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     await showUserStats(userId);
-    const {userSimpleWords, userWordDetails} = await userKnownWords(userId);
-    req.session.userSimpleWords=userSimpleWords;
-    req.session.userWordDetails=userWordDetails;
+    const { userSimpleWords, userWordDetails } = await userKnownWords(userId);
+    req.session.userSimpleWords = userSimpleWords;
+    req.session.userWordDetails = userWordDetails;
     try {
       // Start a new session record
       const { rows } = await pool.query(
@@ -213,17 +213,72 @@ async function selectWordForUser(req) {
   try {
     let selectedWord, additionalWords;
 
+    // Initialize word count if it doesn't exist
+    if (!req.session.wordCount) {
+      req.session.wordCount = 0;
+    }
+
+    // Increment word count for each call
+    req.session.wordCount += 1;
+
     // Filter words where the user guessed wrongly > 20% of the time
     const struggledWords = req.session.userWordDetails.filter((wordDetail) => {
-      const totalGuesses = wordDetail.guessed_correctly + wordDetail.guessed_wrong;
+      const totalGuesses =
+        wordDetail.guessed_correctly + wordDetail.guessed_wrong;
       const wrongPercentage = wordDetail.guessed_wrong / totalGuesses;
       return totalGuesses > 0 && wrongPercentage > 0.2;
     });
 
-    if (req.session.wordSelectionToggle) {
-      // Toggle is true: Attempt to pick a word the user struggles with
+    // Filter words where the user guessed wrongly <= 20% of the time
+    const lessStruggledWords = req.session.userWordDetails.filter(
+      (wordDetail) => {
+        const totalGuesses =
+          wordDetail.guessed_correctly + wordDetail.guessed_wrong;
+        const wrongPercentage = wordDetail.guessed_wrong / totalGuesses;
+        return totalGuesses > 0 && wrongPercentage <= 0.2;
+      }
+    );
+
+    if (req.session.wordCount % 5 === 0 && lessStruggledWords.length > 0) {
+      // Every 5th word: pick a word the user struggles with less
+      const lessStruggledWordDetails =
+        lessStruggledWords[getRandomInt(lessStruggledWords.length)];
+      const lessStruggledWord = lessStruggledWordDetails.word;
+      const totalGuesses =
+        lessStruggledWordDetails.guessed_correctly +
+        lessStruggledWordDetails.guessed_wrong;
+      const wrongPercentage = (
+        (lessStruggledWordDetails.guessed_wrong / totalGuesses) *
+        100
+      ).toFixed(2);
+
+      console.log(
+        `Selected less struggled word: ${lessStruggledWord}, Struggle %: ${wrongPercentage}%`
+      );
+
+      ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
+        req.session.userSimpleWords,
+        "words.csv",
+        lessStruggledWord
+      ));
+    } else if (req.session.wordSelectionToggle) {
+      // Toggle is true: Attempt to pick a word the user struggles with more
       if (struggledWords.length > 0) {
-        const struggledWord = struggledWords[getRandomInt(struggledWords.length)].word;
+        const struggledWordDetails =
+          struggledWords[getRandomInt(struggledWords.length)];
+        const struggledWord = struggledWordDetails.word;
+        const totalGuesses =
+          struggledWordDetails.guessed_correctly +
+          struggledWordDetails.guessed_wrong;
+        const wrongPercentage = (
+          (struggledWordDetails.guessed_wrong / totalGuesses) *
+          100
+        ).toFixed(2);
+
+        console.log(
+          `Selected struggled word: ${struggledWord}, Struggle %: ${wrongPercentage}%`
+        );
+
         ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
           req.session.userSimpleWords,
           "words.csv",
@@ -231,6 +286,7 @@ async function selectWordForUser(req) {
         ));
       } else {
         // No struggled words found, fallback to new word selection without specifying nextWord
+        console.log("No struggled words found, selecting a new word.");
         ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
           req.session.userSimpleWords,
           "words.csv"
@@ -238,6 +294,7 @@ async function selectWordForUser(req) {
       }
     } else {
       // Toggle is false: Pick a completely new word
+      console.log("Selected a completely new word.");
       ({ selectedWord, additionalWords } = await getRandomWordAndTranslations(
         req.session.userSimpleWords,
         "words.csv"
@@ -247,22 +304,26 @@ async function selectWordForUser(req) {
     // Toggle the value for the next call
     req.session.wordSelectionToggle = !req.session.wordSelectionToggle;
 
+    // Return the selected word and additional words
     return { selectedWord, additionalWords };
   } catch (error) {
-    console.error('Error selecting word for user:', error);
+    console.error("Error selecting word for user:", error);
     throw error;
   }
 }
-
 
 app.get("/", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const user = req.user;
+      const userId = req.user.id;
       const user_info = req.session.user_info;
       const total_exp = calculateXpForNextLevel(user_info.level);
-      const { selectedWord, additionalWords } =
-        await selectWordForUser(req);
+      const { selectedWord, additionalWords } = await selectWordForUser(req);
+
+      const { userSimpleWords, userWordDetails } = await userKnownWords(userId);
+      req.session.userSimpleWords = userSimpleWords;
+      req.session.userWordDetails = userWordDetails;
 
       res.status(200).render("index.ejs", {
         user,
