@@ -204,24 +204,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="myModalLabel">Incorrect Answer</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
           </div>
           <div class="modal-body">
             <p id="modal-text"></p>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
             <button type="button" class="btn btn-primary" id="submitForm">
               Submit
             </button>
@@ -257,11 +244,13 @@
         myModal.show();
       }
 
-      document.getElementById("submitForm").addEventListener("click", function () {
-        if (currentFormId) {
-          document.getElementById(currentFormId).submit();
-        }
-      });
+      document
+        .getElementById("submitForm")
+        .addEventListener("click", function () {
+          if (currentFormId) {
+            document.getElementById(currentFormId).submit();
+          }
+        });
     </script>
   </body>
 </html>
