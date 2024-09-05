@@ -214,11 +214,18 @@ app.get("/", async (req, res, next) => {
       const userId = req.user.id;
       const user_info = req.session.user_info;
       const total_exp = calculateXpForNextLevel(user_info.level);
+
+      // Check if there's an unanswered word in the session
+      if (req.session.unansweredWord) {
+        return res.redirect("/wrong_answer");
+      }
+
+      // Select a new word for the user
       const { selectedWord, additionalWords } = await selectWordForUser(req);
 
-      const { userSimpleWords, userWordDetails } = await userKnownWords(userId);
-      req.session.userSimpleWords = userSimpleWords;
-      req.session.userWordDetails = userWordDetails;
+      // Store the selected word in the session and mark it as unanswered
+      req.session.selectedWord = selectedWord;
+      req.session.unansweredWord = true;  // Mark the word as unanswered
 
       res.status(200).render("index.ejs", {
         user,
@@ -237,31 +244,29 @@ app.get("/", async (req, res, next) => {
   }
 });
 
+
 app.post("/correct_answer", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const userId = req.user.id;
       const user_info = req.session.user_info;
-      const selectedWord = req.body;
-      const wordDetails = JSON.parse(selectedWord.selectedWord);
-      const difficulty = parseInt(wordDetails.Difficulty, 10);
-      const word = wordDetails["English Word"];
+      const selectedWord = req.session.selectedWord;
+      const difficulty = parseInt(selectedWord.Difficulty, 10);
+      const word = selectedWord["English Word"];
 
+      // Update session values
       req.session.wordsPlayed += 1;
       req.session.experienceGained += difficulty;
       req.session.wordsGuessedCorrectly += 1;
       req.session.user_info = addExperience(user_info, difficulty);
-
-      // Update user_info
-      await updateUserInfo(
-        userId,
-        req.session.user_info.level,
-        req.session.user_info.current_xp
-      );
-
-      // Update the user_words table for the correct answer
+      
+      // Update the user_info and mark the word as answered
+      await updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp);
       await updateCorrectAnswer(userId, word);
 
+      // Remove the unanswered flag
+      req.session.unansweredWord = false;
+      
       res.redirect("/");
     } else {
       res.redirect("/auth/google");
@@ -270,29 +275,27 @@ app.post("/correct_answer", async (req, res, next) => {
     next(err);
   }
 });
+
 
 app.post("/wrong_answer", async (req, res, next) => {
   try {
     if (req.isAuthenticated()) {
       const userId = req.user.id;
       const user_info = req.session.user_info;
-      const selectedWord = req.body;
-      const wordDetails = JSON.parse(selectedWord.selectedWord);
-      const word = wordDetails["English Word"];
+      const selectedWord = req.session.selectedWord;
+      const word = selectedWord["English Word"];
 
+      // Update session values
       req.session.wordsPlayed += 1;
       req.session.experienceGained -= 1;
       req.session.user_info = subtractExperience(user_info, 1);
 
-      // Update user_info
-      await updateUserInfo(
-        userId,
-        req.session.user_info.level,
-        req.session.user_info.current_xp
-      );
-
-      // Update the user_words table for the wrong answer
+      // Update the user_info and mark the word as answered
+      await updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp);
       await updateWrongAnswer(userId, word);
+
+      // Remove the unanswered flag
+      req.session.unansweredWord = false;
 
       res.redirect("/");
     } else {
@@ -302,6 +305,35 @@ app.post("/wrong_answer", async (req, res, next) => {
     next(err);
   }
 });
+
+app.get("/wrong_answer", async (req, res, next) => {
+  try {
+    if (req.isAuthenticated()) {
+      const userId = req.user.id;
+      const selectedWord = req.session.selectedWord;
+      const word = selectedWord["English Word"];
+
+      // Mark the word as incorrect in the database
+      await updateWrongAnswer(userId, word);
+
+      // Update session stats
+      req.session.wordsPlayed += 1;
+      req.session.experienceGained -= 1;
+      req.session.user_info = subtractExperience(req.session.user_info, 1);
+
+      // Remove the unanswered flag
+      req.session.unansweredWord = false;
+
+      // Redirect back to home page after handling wrong answer
+      res.redirect("/");
+    } else {
+      res.redirect("/auth/google");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 app.get("/auth/logout", async (req, res) => {
   try {
