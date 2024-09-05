@@ -12,6 +12,7 @@ import {
   addExperience,
   subtractExperience,
   selectWordForUser,
+  removeDuplicatesFromCSVFile,
 } from "./funcs.js";
 
 import { createTables, pool, showUserStats } from "./pgTables.js";
@@ -73,6 +74,19 @@ async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     await showUserStats(userId);
+
+    // Func to remove duplicates from the dictionarry
+    // removeDuplicatesFromCSVFile('words.csv')
+    //   .then((result) => {
+    //     console.log('Processed CSV:\n', result);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
+
+
+
+
     const { userSimpleWords, userWordDetails } = await userKnownWords(userId);
     req.session.userSimpleWords = userSimpleWords;
     req.session.userWordDetails = userWordDetails;
@@ -259,14 +273,14 @@ app.post("/correct_answer", async (req, res, next) => {
       req.session.experienceGained += difficulty;
       req.session.wordsGuessedCorrectly += 1;
       req.session.user_info = addExperience(user_info, difficulty);
-      
+
       // Update the user_info and mark the word as answered
       await updateUserInfo(userId, req.session.user_info.level, req.session.user_info.current_xp);
       await updateCorrectAnswer(userId, word);
 
       // Remove the unanswered flag
       req.session.unansweredWord = false;
-      
+
       res.redirect("/");
     } else {
       res.redirect("/auth/google");
