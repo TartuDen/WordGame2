@@ -30,7 +30,7 @@ async function getRandomWordAndTranslations(userSimpleWords, filePath, nextWord 
                 throw new Error('Provided nextWord not found in the word list.');
             }
         } else {
-            // Step 2: Filter out words already known to the user based on their Russian translations
+            // Step 2: Filter out words already known to the user based on their English words
             const newWords = words.filter(word => 
                 !userSimpleWords.includes(word['English Word'])
             );
@@ -59,12 +59,29 @@ async function getRandomWordAndTranslations(userSimpleWords, filePath, nextWord 
             additionalWords.push(word);
         }
 
-        return { selectedWord, additionalWords };
+        // Step 6: Check if the 'Example Sentence' column exists and if it contains data
+        const hasExampleColumn = 'Example Sentence' in selectedWord;
+
+        // Step 7: Include the example sentence if provided, otherwise use an empty string
+        const selectedWordExample = hasExampleColumn ? (selectedWord['Example Sentence'] || "") : "";
+
+        // Adding example to each additional word
+        const additionalWordsWithExamples = additionalWords.map(word => ({
+            ...word,
+            'Example Sentence': hasExampleColumn ? (word['Example Sentence'] || "") : ""
+        }));
+
+        // Return selected word with example and additional words
+        return { 
+            selectedWord: { ...selectedWord, 'Example Sentence': selectedWordExample }, 
+            additionalWords: additionalWordsWithExamples 
+        };
     } catch (err) {
         console.error('Error selecting a word:', err);
         throw err;
     }
 }
+
 
 
 

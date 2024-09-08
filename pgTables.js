@@ -92,6 +92,7 @@ async function showUserStats(userId) {
   try {
     // Fetch the logged-in user's data (replace `userId` with the actual user ID)
     const userStats = await getUserStats(userId);
+    console.log("........userStats......\n",userStats);
 
     // Display user progress in the terminal
     displayUserProgressInTerminal(userStats);

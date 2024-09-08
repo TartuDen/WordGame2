@@ -117,6 +117,11 @@
       background-color: #45a049;
       /* Darker green on hover */
     }
+    .example-sentence {
+      font-weight: normal;
+      font-style: normal;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
   </style>
 </head>
 
@@ -211,8 +216,17 @@
                 </ul>
               </td>
             </tr>
-            <% } %>
-        </tbody>
+            <!-- Add Example Sentence if it exists -->
+    <% if (selectedWord['Example Sentence']) { %>
+      <tr>
+        <td colspan="3" class="example-sentence">
+          <strong>Example Sentence:</strong> <%= selectedWord['Example Sentence'] %>
+        </td>
+      </tr>
+    <% } %>
+  <% } %>
+</tbody>
+           
       </table>
     </div>
   </div>
