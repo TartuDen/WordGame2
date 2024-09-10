@@ -13,8 +13,8 @@ This is a simple and educational word game designed for kids to help them learn 
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/word-game.git
-   cd word-game
+   git clone https://github.com/TartuDen/WordGame2
+   cd WordGame2
    ```
 2. **Install Dependencies:** Make sure you have Node.js installed. Then run:
 ```bash
@@ -22,8 +22,10 @@ npm install
 ```
 3. **Set Up Environment Variables:** Create a .env file in the root directory and add your environment variables. Example:
 ```bash
-DATABASE_URL=your_database_url
-SESSION_SECRET=your_session_secret
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+DB_PASS="password to your postgresql db'
+DB_PORT=f'port of pg db'
 ```
 4. **Run the Game:**
 ```bash
