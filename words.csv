@@ -3,12 +3,10 @@ apple,ˈæpəl,яблоко,1,Food,I eat an apple every morning.
 book,bʊk,книга,1,Objects,I am reading a new book.
 cat,kæt,кот,1,Animals,The cat is sleeping on the couch.
 dog,dɔːɡ,собака,1,Animals,My dog loves to play fetch.
-hello,həˈloʊ,привет,1,Common Phrases,She said hello to everyone.
 red,rɛd,красный,1,Colors,She wore a red dress.
 blue,bluː,синий/голубой,1,Colors,The sky is blue today.
 house,haʊs,дом/жилище,2,Objects,They live in a big house.
 water,ˈwɔːtər,вода,2,Food,I need some water to drink.
-friend,frɛnd,друг/подруга,1,Common Phrases,My friend and I went to the park.
 car,kɑːr,машина/автомобиль,1,Objects,I bought a new car.
 table,ˈteɪbəl,стол,2,Furniture,Put the book on the table.
 chair,ʧɛr,стул,2,Furniture,Please sit on the chair.
@@ -410,14 +408,14 @@ introduce,ˌɪntrəˈdus,вводить,2,Verbs,"The company introduced a new po
 initiate,ɪˈnɪʃiˌeɪt,начинать,2,Verbs,"He initiated the negotiations between the two companies."
 start,stɑrt,начинать,1,Verbs,"She started a new project last week."
 begin,bɪˈɡɪn,начинать,1,Verbs,"They began working on the project right away."
-commence,kəˈmɛns,начинать,2,Verbs,"The meeting will commence at 10 a.m."    
+commence,kəˈmɛns,начинать,3,Verbs,"The meeting will commence at 10 a.m."    
 launch,lɔnʧ,запускать,1,Verbs,"They launched a new product line this summer."
-conclude,kənˈkluːd,заключать,2,Verbs,"The meeting concluded after two hours."
+conclude,kənˈkluːd,заключать,3,Verbs,"The meeting concluded after two hours."
 finish,ˈfɪnɪʃ,заканчивать,1,Verbs,"She finished the report ahead of schedule."
 complete,kəmˈpliːt,завершать,2,Verbs,"He completed the task with great attention to detail."
 end,ɛnd,заканчивать,1,Verbs,"The concert ended at midnight."
-terminate,ˈtɜrmɪˌneɪt,завершать,2,Verbs,"The contract was terminated early due to unforeseen circumstances."
-finalize,ˈfaɪnəlˌaɪz,завершать,2,Verbs,"They finalized the details of the deal last night."
+terminate,ˈtɜrmɪˌneɪt,завершать,3,Verbs,"The contract was terminated early due to unforeseen circumstances."
+finalize,ˈfaɪnəlˌaɪz,завершать,3,Verbs,"They finalized the details of the deal last night."
 execute,ˈɛksɪˌkjut,выполнять,2,Verbs,"The program executes the command in milliseconds."
 implement,ˈɪmplɪˌmɛnt,реализовывать,2,Verbs,"They implemented a new strategy to boost sales."
 apply,əˈplaɪ,применять,1,Verbs,"He applied for a job at the new company."   
@@ -463,41 +461,6 @@ approve,əˈpruv,утверждать,2,Verbs,"The manager approved the budget p
 authorize,ˈɔːθəˌraɪz,санкционировать,3,Verbs,"Only the director can authorize such a decision."
 evaluate,ɪˈvæljuˌeɪt,оценивать,2,Verbs,"They evaluated the new system’s performance."
 review,rɪˈvjuː,обозревать,2,Verbs,"She reviewed the report before sending it to the client."
-that,ðæt,что/тот,1,Common Phrases,"That is the book I was talking about."   
-for,fɔːr,для/за,1,Common Phrases,"This gift is for you."
-you,juː,ты/вы,1,Common Phrases,"I will help you with the project."
-he,hiː,он,1,Common Phrases,"He is the new manager."
-with,wɪð,с,1,Common Phrases,"She went to the meeting with him."
-on,ɒn,на,1,Common Phrases,"The report is on the desk."
-do,duː,делать,1,Common Phrases,"Do you need help with that?"
-this,ðɪs,это,1,Common Phrases,"This is my favorite book."
-they,ðeɪ,они,1,Common Phrases,"They are going to the conference together."  
-at,æt,в/на,1,Common Phrases,"The meeting will be at 10 a.m."
-but,bʌt,но,1,Common Phrases,"She wanted to go, but she was too busy."       
-we,wiː,мы,1,Common Phrases,"We are working on the project."
-his,hɪz,его,1,Common Phrases,"That is his car."
-from,frəm,из/от,1,Common Phrases,"He is from New York."
-not,nɒt,не,1,Common Phrases,"They are not available at the moment."
-n't,n̩t,не,1,Common Phrases,"She didn't attend the meeting."
-by,baɪ,по/через,1,Common Phrases,"The project was completed by the deadline."
-she,ʃiː,она,1,Common Phrases,"She is a talented designer."
-or,ɔːr,или,1,Common Phrases,"Would you like tea or coffee?"
-as,æz,как/будучи,1,Common Phrases,"She works as a teacher."
-what,wɒt,что,1,Common Phrases,"What is your name?"
-go,ɡəʊ,идти/ехать,1,Common Phrases,"They will go to the park."
-their,ðɛr,их,1,Common Phrases,"That is their house."
-can,kæn,мочь,1,Common Phrases,"Can you help me?"
-who,huː,кто,1,Common Phrases,"Who is that?"
-get,ɡɛt,получить/стать,1,Common Phrases,"He will get the book for you."     
-if,ɪf,если,1,Common Phrases,"If it rains, we’ll stay indoors."
-would,wʊd,бы,1,Common Phrases,"I would like to come with you."
-her,hɜːr,её,1,Common Phrases,"That is her car."
-all,ɔːl,всё,1,Common Phrases,"All the tickets are sold out."
-my,maɪ,мой,1,Common Phrases,"This is my favorite movie."
-make,meɪk,делать,1,Common Phrases,"Can you make me a cup of tea?"
-about,əˈbaʊt,о/об,1,Common Phrases,"We talked about the project."
-know,noʊ,знать,1,Common Phrases,"I know the answer."
-will,wɪl,будет/воля,1,Common Phrases,"He will arrive tomorrow."
 up,ʌp,вверх,1,Prepositions,"She looked up at the stars."
 one,wʌn,один,1,Numbers,"He has one dog."
 time,taɪm,время,1,Time,"Do you have time to meet?"
@@ -506,7 +469,7 @@ year,jɪr,год,1,Time,"This year has been challenging."
 so,soʊ,так/поэтому,1,Conjunctions,"It was raining, so we stayed inside."    
 think,θɪŋk,думать,1,Verbs,"I think we should leave now."
 when,wɛn,когда,1,Conjunctions,"When will you arrive?"
-which,wɪʧ,который,2,Relative Pronouns,"Which one do you prefer?"
+which,wɪʧ,который,2,Pronouns,"Which one do you prefer?"
 them,ðɛm,их,1,Pronouns,"I gave them the book."
 some,sʌm,некоторые,1,Determiners,"Some people prefer tea over coffee."      
 me,miː,меня/мне,1,Pronouns,"Can you help me with this?"
@@ -530,7 +493,7 @@ its,ɪts,его/её,1,Pronouns,"The cat is licking its paws."
 our,ˈaʊər,наш,1,Pronouns,"This is our home."
 two,tuː,два,1,Numbers,"They have two children."
 more,mɔːr,больше,1,Adverbs,"He wants more cake."
-these,ðiːz,эти,1,Demonstrative Pronouns,"These shoes are very comfortable." 
+these,ðiːz,эти,1,Pronouns,"These shoes are very comfortable." 
 want,wɒnt,хотеть,1,Verbs,"I want to go home."
 way,weɪ,путь/способ,1,Nouns,"There is no other way to solve this."
 look,lʊk,смотреть,1,Verbs,"Look at the sunset."
@@ -548,7 +511,7 @@ give,ɡɪv,давать,1,Verbs,"Give me the book, please."
 many,ˈmɛni,многие,1,Quantifiers,"Many people came to the event."
 well,wɛl,хорошо,1,Adverbs,"He did well on the test."
 only,ˈoʊnli,только,1,Adverbs,"She is the only one who can help."
-those,ðoʊz,те,1,Demonstrative Pronouns,"Those are my shoes."
+those,ðoʊz,те,1,Pronouns,"Those are my shoes."
 tell,tɛl,сказать,1,Verbs,"Can you tell me your name?"
 very,ˈvɛri,очень,1,Adverbs,"She is very smart."
 even,ˈiːvən,даже,1,Adverbs,"Even he was surprised by the news."
@@ -558,7 +521,6 @@ good,ɡʊd,хороший,1,Adjectives,"This is a good idea."
 woman,ˈwʊmən,женщина,1,People,"She is a strong woman."
 through,θruː,через,2,Prepositions,"We walked through the forest."
 us,ʌs,нас/нам,1,Pronouns,"They gave us directions."
-life,laɪf,жизнь,1,Common Phrases,"Life is beautiful."
 child,ʧaɪld,ребёнок,1,People,"The child was playing in the garden."
 work,wɜːrk,работать,1,Verbs,"He works at a hospital."
 down,daʊn,вниз,1,Prepositions,"We walked down the hill."
@@ -652,184 +614,46 @@ large,lɑːrʤ,большой,1,Adjectives,They live in a large house.
 million,ˈmɪljən,миллион,1,Numbers,The company made a million dollars in profit.
 must,mʌst,должен,1,Modal Verbs,You must wear a helmet when riding a bike.   
 home,hoʊm,дом,1,Places,Let's go home now.
-under,ˈʌndər,под,1,Common Phrases,The cat is hiding under the table.        
 room,ruːm,комната,1,Places,This room is very spacious.
 mother,ˈmʌðər,мать,1,People,My mother is an amazing cook.
 area,ˈɛriə,область,1,Places,This area is known for its beautiful parks.     
-national,ˈnæʃənl,национальный,1,Common Phrases,She works for a national newspaper.
-money,ˈmʌni,деньги,1,Common Phrases,Money can't buy happiness.
-story,ˈstɔːri,история,1,Common Phrases,That's an interesting story.
-young,jʌŋ,молодой,1,Common Phrases,He is still young and has a lot to learn.
-fact,fækt,факт,1,Common Phrases,It's a fact that exercise is good for you.  
 month,mʌnθ,месяц,1,Time,I will start my new job next month.
-different,ˈdɪfrənt,различный,1,Common Phrases,They have different opinions on the topic.
-lot,lɒt,много,1,Common Phrases,There are a lot of books on the shelf.       
-study,ˈstʌdi,учиться,1,Common Phrases,I need to study for the test.
 eye,aɪ,глаз,1,Body Parts,She has beautiful blue eyes.
-job,ʤɒb,работа,1,Common Phrases,He got a new job as a teacher.
-word,wɜːrd,слово,1,Common Phrases,Do you know what this word means?
-though,ðoʊ,хотя,1,Common Phrases,I like the movie though it was a bit long. 
-business,ˈbɪznɪs,бизнес,1,Common Phrases,She runs her own business.
-issue,ˈɪʃuː,вопрос/проблема,1,Common Phrases,We need to discuss this issue. 
-side,saɪd,сторона,1,Common Phrases,Please stand on the other side of the road.
-kind,kaɪnd,вид/тип,1,Common Phrases,What kind of music do you like?
 four,fɔːr,четыре,1,Numbers,I have four apples in my bag.
 head,hɛd,голова,1,Body Parts,She shook her head in disagreement.
-far,fɑːr,далеко,1,Common Phrases,The store is far from here.
 black,blæk,чёрный,1,Colors,He is wearing a black jacket.
-long,lɒŋ,длинный,1,Common Phrases,She has long hair.
-both,boʊθ,оба,1,Common Phrases,Both of them are coming to the party.        
-little,ˈlɪtəl,маленький,1,Common Phrases,He has a little dog.
 house,haʊs,дом,1,Places,They bought a new house.
-yes,jɛs,да,1,Common Phrases,Yes I agree with you.
-since,sɪns,с/так как,1,Common Phrases,I haven't seen him since last year.   
-provide,prəˈvaɪd,предоставлять,1,Common Phrases,They provide excellent customer service.
-service,ˈsɜːrvɪs,услуга,1,Common Phrases,The service at the restaurant was great.
-around,əˈraʊnd,вокруг,1,Common Phrases,We walked around the park.
 friend,frɛnd,друг,1,People,She is my best friend.
-important,ɪmˈpɔːrtənt,важный,1,Common Phrases,It's important to stay healthy.
 father,ˈfɑːðər,отец,1,People,My father is a doctor.
-sit,sɪt,сидеть,1,Common Phrases,Please sit down.
-away,əˈweɪ,вдали,1,Common Phrases,He lives far away from here.
-until,ənˈtɪl,до,1,Common Phrases,Wait until I get back.
-power,ˈpaʊər,сила,1,Common Phrases,Knowledge is power.
 hour,ˈaʊər,час,1,Time,It took an hour to get there.
-game,ɡeɪm,игра,1,Common Phrases,They played a fun game.
-often,ˈɔːfən,часто,1,Common Phrases,She often visits her grandmother.       
-yet,jɛt,ещё/пока,1,Common Phrases,He hasn't arrived yet.
-line,laɪn,линия,1,Common Phrases,Please stand in line.
 political,pəˈlɪtɪkəl,политический,1,Politics,She is interested in political issues.
-end,ɛnd,конец,1,Common Phrases,This is the end of the road.
-among,əˈmʌŋ,среди,1,Common Phrases,She is popular among her friends.        
-ever,ˈɛvər,когда-либо,1,Common Phrases,Have you ever been to Paris?
-stand,stænd,стоять,1,Common Phrases,I can't stand the heat.
-bad,bæd,плохой,1,Common Phrases,That was a bad idea.
-however,haʊˈɛvər,однако,1,Common Phrases,He is smart; however he is lazy.   
-member,ˈmɛmbər,член,1,Common Phrases,He is a member of the club.
-pay,peɪ,платить,1,Common Phrases,I need to pay my bills.
 law,lɔː,закон,1,Politics,The new law was passed yesterday.
-meet,miːt,встречать,1,Common Phrases,I will meet you at the restaurant.     
 car,kɑːr,автомобиль,1,Objects,He drives a red car.
 city,ˈsɪti,город,1,Places,Paris is a beautiful city.
-almost,ˈɔːlmoʊst,почти,1,Common Phrases,The movie is almost over.
-include,ɪnˈkluːd,включать,1,Common Phrases,Please include your contact details.
-continue,kənˈtɪnjuː,продолжать,1,Common Phrases,Let's continue our discussion.
-set,sɛt,устанавливать,1,Common Phrases,"He set the table for dinner."       
 later,ˈleɪtər,позже,1,Time,"I'll call you later."
-community,kəˈmjuːnɪti,сообщество,1,Common Phrases,"The community came together to clean the park."
-name,neɪm,имя,1,Common Phrases,"What's your name?"
 five,faɪv,пять,1,Numbers,"She has five cats."
-once,wʌns,однажды,1,Common Phrases,"I visited Paris once."
 white,waɪt,белый,1,Colors,"The walls are painted white."
-least,liːst,наименее,1,Common Phrases,"He was the least experienced member of the team."
 president,ˈprɛzɪdənt,президент,1,People,"The president gave a speech."      
-real,ˈriːəl,реальный,1,Common Phrases,"Is this diamond real?"
-change,ʧeɪnʤ,изменять,1,Common Phrases,"You need to change your password regularly."
-team,tiːm,команда,1,Common Phrases,"Our team won the game."
 minute,ˈmɪnɪt,минута,1,Time,"I'll be ready in a minute."
-best,bɛst,лучший,1,Common Phrases,"She is the best player on the team."     
-several,ˈsɛvrəl,несколько,1,Common Phrases,"I've been to several countries."
-idea,aɪˈdɪə,идея,1,Common Phrases,"That's a great idea!"
 kid,kɪd,ребёнок,1,People,"The kid is playing in the yard."
 body,ˈbɒdi,тело,1,Body Parts,"He exercises to stay in shape and keep his body fit."
-information,ˌɪnfərˈmeɪʃən,информация,1,Common Phrases,"Can you give me more information?"
-nothing,ˈnʌθɪŋ,ничего,1,Common Phrases,"I have nothing to say."
-ago,əˈɡoʊ,назад,1,Common Phrases,"I saw him two days ago."
-lead,liːd,вести,1,Common Phrases,"She will lead the team to success."       
-social,ˈsoʊʃəl,социальный,1,Common Phrases,"Social media is very popular nowadays."
-understand,ˌʌndərˈstænd,понимать,1,Common Phrases,"I understand your point of view."
-whether,ˈwɛðər,ли,1,Common Phrases,"I don't know whether he will come."     
-watch,wɑːʧ,смотреть,1,Common Phrases,"I love to watch movies on weekends."  
-together,təˈɡɛðər,вместе,1,Common Phrases,"We can solve this problem together."
-follow,ˈfɑːloʊ,следовать,1,Common Phrases,"Follow me, I know the way."      
 parent,ˈpɛrənt,родитель,1,People,"Being a parent is a lot of responsibility."
-stop,stɒp,остановить,1,Common Phrases,"Please stop talking for a moment."   
 face,feɪs,лицо,1,Body Parts,"Her face lit up when she saw the gift."        
-anything,ˈɛniθɪŋ,что угодно,1,Common Phrases,"Is there anything I can help you with?"
-public,ˈpʌblɪk,публичный,1,Common Phrases,"The decision will be announced to the public."
-already,ɔːlˈrɛdi,уже,1,Common Phrases,"I've already seen that movie."       
-speak,spiːk,говорить,1,Common Phrases,"Can you speak more clearly, please?" 
-others,ˈʌðərz,другие,1,Common Phrases,"Some people agree, but others do not."
-level,ˈlɛvl,уровень,1,Common Phrases,"She reached the next level in the game."
-add,æd,добавлять,1,Common Phrases,"Can you add more sugar to my tea?"       
 office,ˈɒfɪs,офис,1,Places,"I'll be in the office all afternoon."
-spend,spɛnd,тратить,1,Common Phrases,"He spends too much money on clothes." 
-health,hɛlθ,здоровье,1,Common Phrases,"Good health is more valuable than gold."
 person,ˈpɜːrsən,человек,1,People,"He's a very kind person."
-art,ɑːrt,искусство,1,Common Phrases,"Art is a reflection of society."       
-war,wɔːr,война,1,Common Phrases,"The war lasted for five years."
-history,ˈhɪstəri,история,1,Common Phrases,"History teaches us valuable lessons."
-party,ˈpɑːrti,вечеринка/партия,1,Common Phrases,"Are you going to the party tonight?"
-result,rɪˈzʌlt,результат,1,Common Phrases,"The result of the test was positive."
-sure,ʃʊr,уверенный,1,Common Phrases,"Are you sure about that?"
-within,wɪˈðɪn,в пределах,1,Common Phrases,"Please stay within the boundaries."
-grow,ɡroʊ,расти,1,Common Phrases,"Plants grow better with sunlight."        
-open,ˈoʊpən,открывать,1,Common Phrases,"Can you open the window?"
 morning,ˈmɔːrnɪŋ,утро,1,Time,"Good morning!"
-walk,wɔːk,ходить,1,Common Phrases,"I walk to work every day."
-reason,ˈriːzn,причина,1,Common Phrases,"What's the reason for your decision?"
-low,loʊ,низкий,1,Common Phrases,"The prices are very low right now."        
-win,wɪn,выигрывать,1,Common Phrases,"He always wants to win."
-research,rɪˈsɜːrʧ,исследование,1,Common Phrases,"She's conducting research on climate change."
 girl,ɡɜːrl,девочка,1,People,"The little girl is playing with her doll."     
 guy,ɡaɪ,парень,1,People,"Who's that guy over there?"
-early,ˈɜːrli,ранний,1,Common Phrases,"I prefer to wake up early."
-food,fuːd,еда,1,Common Phrases,"I love Italian food."
-moment,ˈmoʊmənt,момент,1,Common Phrases,"Just give me a moment, please."    
-himself,hɪmˈsɛlf,сам,1,Common Phrases,"He did it all by himself."
 air,eər,воздух,1,Nature,"The air is fresh in the mountains."
 teacher,ˈtiːʧər,учитель,1,People,"My teacher is very kind."
-force,fɔːrs,сила,1,Common Phrases,"The force of the wind knocked the tree over."
-enough,ɪˈnʌf,достаточно,1,Common Phrases,"That's enough for today."
-education,ˌɛdʒuˈkeɪʃən,образование,1,Common Phrases,"Education is key to a successful future."
-across,əˈkrɒs,через,1,Common Phrases,"I walked across the street."
-although,ɔːlˈðoʊ,хотя,1,Common Phrases,"Although it was raining, we went outside."
-remember,rɪˈmɛmbər,помнить,1,Common Phrases,"I remember the first time we met."
 foot,fʊt,нога,1,Body Parts,"My foot hurts after walking all day."
 second,ˈsɛkənd,второй,1,Time,"He finished in second place."
 boy,bɔɪ,мальчик,1,People,"The boy is playing with his friends."
-maybe,ˈmeɪbi,возможно,1,Common Phrases,"Maybe I'll join you later."
-toward,tɔːrd,по направлению к,1,Common Phrases,"He walked toward the door." 
-able,ˈeɪbəl,способный,1,Common Phrases,"She is able to solve the problem."  
-age,eɪʤ,возраст,1,Common Phrases,"What's your age?"
 policy,ˈpɒləsi,политика,1,Politics,"The new policy was introduced last week."
-everything,ˈɛvrɪθɪŋ,всё,1,Common Phrases,"Everything is going according to plan."
-love,lʌv,любовь,1,Common Phrases,"I love my family."
-process,ˈprɑːsɛs,процесс,1,Common Phrases,"The process will take a few days."
-music,ˈmjuːzɪk,музыка,1,Common Phrases,"I can't live without music."        
-including,ɪnˈkluːdɪŋ,включая,1,Common Phrases,"We're all going, including Tom."
-consider,kənˈsɪdər,рассматривать,1,Common Phrases,"Please consider my proposal."
-appear,əˈpɪər,появляться,1,Common Phrases,"The sun will appear soon."       
-actually,ˈækʧuəli,фактически,1,Common Phrases,"Actually, I don't agree with you."
-buy,baɪ,покупать,1,Common Phrases,"I need to buy some groceries."
-probably,ˈprɒbəbli,вероятно,1,Common Phrases,"It will probably rain tomorrow."
 human,ˈhjuːmən,человек,1,People,"Every human deserves respect."
-wait,weɪt,ждать,1,Common Phrases,"I'll wait for you here."
 market,ˈmɑːrkɪt,рынок,1,Places,"I bought fresh vegetables at the market."   
-die,daɪ,умирать,1,Common Phrases,"Many soldiers die in war."
-send,sɛnd,отправлять,1,Common Phrases,"I need to send this package."        
-expect,ɪkˈspɛkt,ожидать,1,Common Phrases,"I didn't expect to see you here." 
-sense,sɛns,чувство,1,Common Phrases,"He has a good sense of humor."
-build,bɪld,строить,1,Common Phrases,"They plan to build a new house."       
-stay,steɪ,оставаться,1,Common Phrases,"I'll stay here until you're ready."  
-fall,fɔːl,падать,1,Common Phrases,"Be careful not to fall."
-oh,oʊ,ох,1,Common Phrases,"Oh no, I forgot my keys."
-nation,ˈneɪʃən,нация,1,Common Phrases,"The nation celebrated its independence."
-plan,plæn,план,1,Common Phrases,"Do you have a plan for the weekend?"       
-cut,kʌt,резать,1,Common Phrases,"Be careful when you cut the vegetables."   
 college,ˈkɒlɪʤ,колледж,1,Places,"I will go to college next year."
-interest,ˈɪntrəst,интерес,1,Common Phrases,"He has a strong interest in history."
-death,dɛθ,смерть,1,Common Phrases,"The death of the famous actor shocked everyone."
-course,kɔːrs,курс,1,Common Phrases,"I'm taking a math course this semester."
-someone,ˈsʌmwʌn,кто-то,1,Common Phrases,"Someone is knocking on the door."  
-experience,ɪksˈpɪəriəns,опыт,1,Common Phrases,"She has a lot of experience in teaching."
-behind,bɪˈhaɪnd,позади,1,Common Phrases,"The car is parked behind the house."
-reach,riːʧ,достигать,1,Common Phrases,"He tried to reach the top shelf."    
-local,ˈloʊkəl,местный,1,Common Phrases,"I love the local food here."        
-kill,kɪl,убивать,1,Common Phrases,"The hunter tried to kill a deer."        
 six,sɪks,шесть,1,Numbers,"The meeting starts at six o'clock."
-remain,rɪˈmeɪn,оставаться,1,Common Phrases,"Please remain seated during the flight."
-effect,ɪˈfɛkt,эффект,1,Common Phrases,"The medicine had a positive effect on his health."
 serve,sɜːrv,обслуживать,1,Verbs,They serve breakfast from 7 AM.
 sense,sɛns,чувствовать/смысл,1,Verbs,He has a strong sense of smell.        
 nation,ˈneɪʃən,нация/страна,1,Places,Our nation celebrates independence day in July.
@@ -896,17 +720,17 @@ thank,θæŋk,благодарить,1,Verbs,Thank you for your help.
 value,ˈvæljuː,ценность,1,Nouns,The value of this painting is very high.     
 international,ˌɪntəˈnæʃənəl,международный,2,Adjectives,She works for an international company.
 method,ˈmɛθəd,метод/способ,2,Nouns,We need to find a better method.
-sign,saɪn,знак/подписывать,1,Nouns/Verbs,He gave me a sign to proceed.      
+sign,saɪn,знак/подписывать,1,Nouns,He gave me a sign to proceed.      
 somebody,ˈsʌmbədi,кто-то,1,People,Somebody left their umbrella here.        
 hotel,hoʊˈtɛl,гостиница,1,Places,We stayed at a hotel near the beach.       
 soldier,ˈsoʊlʤər,солдат,1,People,The soldier was honored for his bravery.   
 reflect,rɪˈflɛkt,отражать/размышлять,2,Verbs,The mirror reflects light.     
 heavy,ˈhɛvi,тяжелый,1,Adjectives,This box is too heavy to lift.
 sexual,ˈsɛkʃuəl,сексуальный,2,Adjectives,They had a discussion about sexual health.
-cause,kɔːz,причина/вызывать,1,Nouns/Verbs,The storm caused a power outage.  
+cause,kɔːz,причина/вызывать,1,Nouns,The storm caused a power outage.  
 bag,bæg,сумка,1,Nouns,She packed her bag for the trip.
-heat,hiːt,жара/нагревать,1,Nouns/Verbs,The heat in the room was unbearable. 
-fall,fɔːl,падать/осень,1,Verbs/Nouns,He tripped and started to fall.        
+heat,hiːt,жара/нагревать,1,Nouns,The heat in the room was unbearable. 
+fall,fɔːl,падать/осень,1,Verbs,He tripped and started to fall.        
 marriage,ˈmærɪʤ,брак,1,Nouns,They have a happy marriage.
 tough,tʌf,трудный/жесткий,1,Adjectives,The exam was tough.
 sing,sɪŋ,петь,1,Verbs,I love to sing in the shower.
@@ -923,7 +747,7 @@ gas,gæs,газ,1,Nouns,The car runs on gas.
 ahead,əˈhɛd,впереди,1,Adverbs,The road ahead is clear.
 generation,ˌʤɛnəˈreɪʃən,поколение,2,Nouns,This generation grew up with technology.
 commercial,kəˈmɜːrʃəl,коммерческий/реклама,2,Adjectives,We saw a funny commercial on TV.
-address,ˈædrɛs,адрес,1,Nouns/Verbs,What is your home address?
+address,ˈædrɛs,адрес,1,Nouns,What is your home address?
 cancer,ˈkænsər,рак,1,Nouns,He was diagnosed with cancer last year.
 test,tɛst,тест/проверка,1,Nouns,The students took a math test.
 item,ˈaɪtəm,предмет,1,Nouns,This item is on sale.
@@ -934,13 +758,13 @@ Mrs,ˈmɪsɪz,миссис,1,People,Mrs. Smith is my teacher.
 yard,jɑːrd,двор/ярд,1,Places,The kids played in the yard.
 beat,biːt,бить,1,Verbs,His heart beats fast when he runs.
 violence,ˈvaɪələns,насилие,2,Nouns,The movie contains scenes of violence.   
-total,ˈtoʊtəl,итого/общий,1,Nouns/Adjectives,The total cost is $100.        
+total,ˈtoʊtəl,итого/общий,1,Nouns,The total cost is $100.        
 tend,tɛnd,иметь склонность,1,Verbs,People tend to eat more in winter.       
 investment,ɪnˈvɛstmənt,инвестиция,2,Nouns,She made a big investment in the company.
 discussion,dɪˈskʌʃən,обсуждение,1,Nouns,We had a long discussion about the project.
 finger,ˈfɪŋgər,палец,1,Body Parts,She cut her finger while cooking.
 garden,ˈgɑːrdən,сад,1,Places,They grow flowers in their garden.
-notice,ˈnoʊtɪs,замечать/уведомление,1,Verbs/Nouns,Did you notice the change in the weather?
+notice,ˈnoʊtɪs,замечать/уведомление,1,Verbs,Did you notice the change in the weather?
 collection,kəˈlɛkʃən,коллекция,1,Nouns,He has a large collection of stamps. 
 modern,ˈmɒdərn,современный,1,Adjectives,They live in a modern house.        
 task,tæsk,задача,1,Nouns,I have an important task to complete.
@@ -976,18 +800,18 @@ vote,voʊt,голосовать,1,Verbs,Everyone should have the right to vote.
 western,ˈwɛstərn,западный,1,Adjectives,The western part of the city is quieter.
 relate,rɪˈleɪt,связывать,2,Verbs,Can you relate to her story?
 travel,ˈtrævəl,путешествовать,1,Verbs,I love to travel to new countries.    
-debate,dɪˈbeɪt,дебаты/обсуждать,2,Nouns/Verbs,We had a debate about the new policy.
+debate,dɪˈbeɪt,дебаты/обсуждать,2,Nouns,We had a debate about the new policy.
 prevent,prɪˈvɛnt,предотвращать,1,Verbs,We need to prevent further damage.   
 citizen,ˈsɪtɪzən,гражданин,1,People,She is a citizen of France.
 majority,məˈʤɒrɪti,большинство,2,Nouns,The majority voted in favor of the new law.
 none,nʌn,ни один,1,Pronouns,None of the students knew the answer.
-front,frʌnt,перед/фронт,1,Nouns/Adjectives,We sat in the front row.
+front,frʌnt,перед/фронт,1,Nouns,We sat in the front row.
 born,bɔːrn,родиться,1,Verbs,She was born in 1990.
 admit,ədˈmɪt,признавать/допускать,2,Verbs,He admitted his mistake.
 senior,ˈsiːnjər,старший,1,Adjectives,She is a senior executive in the company.
 assume,əˈsjuːm,предполагать,2,Verbs,We assume he will be late.
 wind,wɪnd,ветер,1,Nouns,The wind is blowing hard today.
-key,kiː,ключ/ключевой,1,Nouns/Adjectives,This is the key to my apartment.   
+key,kiː,ключ/ключевой,1,Nouns,This is the key to my apartment.   
 professional,prəˈfɛʃənəl,профессионал,1,Adjectives,She is a professional athlete.
 mission,ˈmɪʃən,миссия/задание,2,Nouns,Their mission is to explore Mars.     
 fast,fæst,быстрый,1,Adjectives,He runs very fast.
@@ -1003,16 +827,16 @@ fresh,frɛʃ,свежий,1,Adjectives,I bought fresh fruits from the market.
 effective,ɪˈfɛktɪv,эффективный,1,Adjectives,This medicine is highly effective.
 neighborhood,ˈneɪbərˌhʊd,соседство,1,Places,Our neighborhood is very friendly.
 original,əˈrɪʤɪnəl,оригинальный/исходный,1,Adjectives,The original plan was changed.
-act,ækt,действовать/акт,1,Verbs/Nouns,It’s important to act quickly in an emergency.
+act,ækt,действовать/акт,1,Verbs,It’s important to act quickly in an emergency.
 troop,truːp,отряд/войска,2,Nouns,The troops were deployed to the border.
 income,ˈɪnkəm,доход,1,Nouns,Her income is higher this year.
 directly,dɪˈrɛktli,непосредственно/прямо,1,Adverbs,The train goes directly to the city.
 hurt,hɜrt,ранить/болеть,1,Verbs,He hurt his knee while running.
 species,ˈspiːʃiːz,вид/разновидность,2,Nouns,There are many endangered species.
 immediately,ɪˈmiːdiətli,немедленно,1,Adverbs,She left the room immediately.
-track,træk,трек/отслеживать,1,Nouns/Verbs,The GPS tracks your location.
+track,træk,трек/отслеживать,1,Nouns,The GPS tracks your location.
 basic,ˈbeɪsɪk,основной/базовый,1,Adjectives,He taught me the basic steps.
-strike,straɪk,забастовка/удар,1,Nouns/Verbs,Workers went on strike today.
+strike,straɪk,забастовка/удар,1,Nouns,Workers went on strike today.
 freedom,ˈfriːdəm,свобода,1,Nouns,They are fighting for their freedom.
 absolutely,ˈæbsəluːtli,абсолютно,1,Adverbs,I absolutely agree with you.
 plane,pleɪn,самолет,1,Nouns,The plane took off on time.
@@ -1028,20 +852,19 @@ powerful,ˈpaʊərfəl,мощный/сильный,1,Adjectives,He gave a powerf
 perfect,ˈpɜrˌfɪkt,идеальный,1,Adjectives,The weather was perfect for a picnic.
 nine,naɪn,девять,1,Numbers,The clock struck nine.
 therefore,ˈðɛrfɔr,поэтому/следовательно,2,Conjunctions,It was raining therefore we stayed inside.
-conduct,kənˈdʌkt,проводить/поведение,2,Verbs/Nouns,She will conduct the interview.
+conduct,kənˈdʌkt,проводить/поведение,2,Verbs,She will conduct the interview.
 conversation,ˌkɑnvərˈseɪʃən,разговор,1,Nouns,We had an interesting conversation last night.
-touch,tʌʧ,касаться/прикосновение,1,Verbs/Nouns,She reached out to touch the cat.
-please,pliːz,пожалуйста,1,Common Phrases,Please pass me the salt.
+touch,tʌʧ,касаться/прикосновение,1,Verbs,She reached out to touch the cat.
 attend,əˈtɛnd,посещать/присутствовать,1,Verbs,I will attend the meeting tomorrow.
 completely,kəmˈplitli,полностью,1,Adverbs,The house was completely renovated.
 variety,vəˈraɪəti,разнообразие,1,Nouns,There is a variety of options available.
 sleep,sliːp,спать,1,Verbs,I need more sleep.
-turn,tɜrn,поворачивать/поворот,1,Verbs/Nouns,Please turn left at the corner.
+turn,tɜrn,поворачивать/поворот,1,Verbs,Please turn left at the corner.
 involved,ɪnˈvɑlvd,вовлечённый,2,Adjectives,He was involved in the project from the start.
 investigation,ɪnˌvɛstəˈgeɪʃən,расследование,2,Nouns,The investigation is still ongoing.
 nuclear,ˈnuːkliər,ядерный,2,Adjectives,They discussed nuclear energy at the summit.
 researcher,ˈriˌsɜrʧər,исследователь,1,People,The researcher published a new study.
-press,prɛs,пресса/нажимать,1,Nouns/Verbs,The press interviewed the politician.
+press,prɛs,пресса/нажимать,1,Nouns,The press interviewed the politician.
 conflict,ˈkɑnflɪkt,конфликт,1,Nouns,The conflict was resolved peacefully.
 spirit,ˈspɪrɪt,дух/настроение,1,Nouns,Her spirit was high after the game.
 British,ˈbrɪtɪʃ,британский,1,Adjectives,He has a British accent.
@@ -1049,10 +872,188 @@ encourage,ɪnˈkɜrɪʤ,поощрять/вдохновлять,2,Verbs,Parents 
 lot,lɒt,много/участок,1,Nouns,She has a lot of friends.
 argument,ˈɑrgjʊmənt,спор/аргумент,1,Nouns,They had an argument over money.
 by,baɪ,к/около/посредством,1,Prepositions,He sat by the window.
-once,wʌns,однажды/один раз,1,Adverbs/Conjunctions,I met him once at a conference.
-camp,kæmp,лагерь,1,Nouns/Verbs,They set up camp near the river.
+once,wʌns,однажды/один раз,1,Adverbs,I met him once at a conference.
+camp,kæmp,лагерь,1,Nouns,They set up camp near the river.
 brain,breɪn,мозг,1,Nouns,The brain is a complex organ.
 feature,ˈfiːʧər,особенность/черта,2,Nouns,The phone has many new features.
 afternoon,ˌæftərˈnun,день/послеобеденное время,1,Nouns,We’ll meet in the afternoon.
 AM,ˌeɪˈɛm,утро (до полудня),1,Time,The store opens at 9 AM.
 weekend,ˈwiːkˌɛnd,выходные,1,Nouns,They went to the beach for the weekend.
+hello,həˈloʊ,привет,1,Common Phrases,She said hello to everyone.
+friend,frɛnd,друг/подруга,1,Common Phrases,My friend and I went to the park.
+that,ðæt,что/тот,1,Pronoun,"That is the book I was talking about."
+for,fɔːr,для/за,1,Prepositions,"This gift is for you."
+you,juː,ты/вы,1,Pronoun,"I will help you with the project."
+he,hiː,он,1,Pronoun,"He is the new manager."
+with,wɪð,с,1,Prepositions,"She went to the meeting with him."
+on,ɒn,на,1,Prepositions,"The report is on the desk."
+do,duː,делать,1,Verbs,"I do my homework."
+this,ðɪs,это,1,Pronoun,"This is my favorite book."
+they,ðeɪ,они,1,Pronoun,"They are going to the conference together."
+at,æt,в/на,1,Prepositions,"The meeting will be at 10 a.m."
+but,bʌt,но,1,Conjunction,"She wanted to go, but she was too busy."
+we,wiː,мы,1,Pronoun,"We are working on the project."
+his,hɪz,его,1,Pronoun,"That is his car."
+from,frəm,из/от,1,Prepositions,"He is from New York."
+not,nɒt,не,1,Adverb,"They are not available at the moment."
+n't,n̩t,не,1,Contraction,"She didn't attend the meeting."
+by,baɪ,по/через,1,Prepositions,"The project was completed by the deadline."
+she,ʃiː,она,1,Pronoun,"She is a talented designer."
+or,ɔːr,или,1,Conjunction,"Would you like tea or coffee?"
+as,æz,как/будучи,1,Prepositions,"She works as a teacher."
+what,wɒt,что,1,Pronoun,"What is your name?"
+go,ɡəʊ,идти/ехать,1,Common Phrases,"They will go to the park."
+their,ðɛr,их,1,Pronoun,"That is their house."
+can,kæn,мочь,1,Modal Verb,"Can you help me?"
+who,huː,кто,1,Pronoun,"Who is that?"
+get,ɡɛt,получить/стать,1,Common Phrases,"He will get the book for you."
+if,ɪf,если,1,Conjunction,"If it rains, we’ll stay indoors."
+would,wʊd,бы,1,Modal Verb,"I would like to come with you."
+her,hɜːr,её,1,Pronoun,"That is her car."
+all,ɔːl,всё,1,Pronoun,"All the tickets are sold out."
+my,maɪ,мой,1,Pronoun,"This is my favorite movie."
+make,meɪk,делать,1,Common Phrases,"Can you make me a cup of tea?"
+about,əˈbaʊt,о/об,1,Prepositions,"We talked about the project."
+know,noʊ,знать,1,Common Phrases,"I know the answer."
+will,wɪl,будет/воля,1,Modal Verb,"He will arrive tomorrow."
+life,laɪf,жизнь,1,Noun,"Life is beautiful."
+under,ˈʌndər,под,1,Prepositions,"The cat is hiding under the table."
+national,ˈnæʃənl,национальный,1,Adjective,"She works for a national newspaper."
+money,ˈmʌni,деньги,1,Noun,"Money can't buy happiness."
+story,ˈstɔːri,история,1,Noun,"That's an interesting story."
+young,jʌŋ,молодой,1,Adjective,"He is still young and has a lot to learn."
+fact,fækt,факт,1,Noun,"It's a fact that exercise is good for you."
+different,ˈdɪfrənt,различный,1,Adjective,"They have different opinions on the topic."
+lot,lɒt,много,1,Common Phrases,"There are a lot of books on the shelf."
+study,ˈstʌdi,учиться,1,Common Phrases,"I need to study for the test."
+job,ʤɒb,работа,1,Noun,"He got a new job as a teacher."
+word,wɜːrd,слово,1,Noun,"Do you know what this word means?"
+though,ðoʊ,хотя,1,Conjunction,"I like the movie though it was a bit long."
+business,ˈbɪznɪs,бизнес,1,Noun,"She runs her own business."
+issue,ˈɪʃuː,вопрос/проблема,1,Noun,"We need to discuss this issue."
+side,saɪd,сторона,1,Noun,"Please stand on the other side of the road."
+kind,kaɪnd,вид/тип,1,Noun,"What kind of music do you like?"
+far,fɑːr,далеко,1,Adverb,"The store is far from here."
+long,lɒŋ,длинный,1,Adjective,"She has long hair."
+both,boʊθ,оба,1,Pronoun,"Both of them are coming to the party."
+little,ˈlɪtəl,маленький,1,Adjective,"He has a little dog."
+yes,jɛs,да,1,Common Phrases,"Yes, I agree with you."
+since,sɪns,с/так как,1,Prepositions,"I haven't seen him since last year."
+provide,prəˈvaɪd,предоставлять,1,Common Phrases,"They provide excellent customer service."
+service,ˈsɜːrvɪs,услуга,1,Noun,"The service at the restaurant was great."
+around,əˈraʊnd,вокруг,1,Prepositions,"We walked around the park."
+important,ɪmˈpɔːrtənt,важный,1,Adjective,"It's important to stay healthy."
+sit,sɪt,сидеть,1,Common Phrases,"Please sit down."
+away,əˈweɪ,вдали,1,Adverb,"He lives far away from here."
+until,ənˈtɪl,до,1,Prepositions,"Wait until I get back."
+power,ˈpaʊər,сила,1,Noun,"Knowledge is power."
+game,ɡeɪm,игра,1,Noun,"They played a fun game."
+often,ˈɔːfən,часто,1,Adverb,"She often visits her grandmother."
+yet,jɛt,ещё/пока,1,Adverb,"He hasn't arrived yet."
+line,laɪn,линия,1,Noun,"Please stand in line."
+end,ɛnd,конец,1,Noun,"This is the end of the road."
+among,əˈmʌŋ,среди,1,Prepositions,"She is popular among her friends."
+ever,ˈɛvər,когда-либо,1,Adverb,"Have you ever been to Paris?"
+stand,stænd,стоять,1,Common Phrases,"I can't stand the heat."
+bad,bæd,плохой,1,Adjective,"That was a bad idea."
+however,haʊˈɛvər,однако,1,Conjunction,"He is smart; however, he is lazy."
+member,ˈmɛmbər,член,1,Noun,"He is a member of the club."
+pay,peɪ,платить,1,Common Phrases,"I need to pay my bills."
+meet,miːt,встречать,1,Common Phrases,"I will meet you at the restaurant."
+almost,ˈɔːlmoʊst,почти,1,Adverb,"The movie is almost over."
+include,ɪnˈkluːd,включать,1,Common Phrases,"Please include your contact details."
+continue,kənˈtɪnjuː,продолжать,1,Common Phrases,"Let's continue our discussion."
+set,sɛt,устанавливать,1,Common Phrases,"He set the table for dinner."
+community,kəˈmjuːnɪti,сообщество,1,Noun,"The community came together to clean the park."
+name,neɪm,имя,1,Noun,"What's your name?"
+once,wʌns,однажды,1,Adverb,"I visited Paris once."
+word,phonetic,translation,level,category,sample_sentence
+least,liːst,наименее,1,Common Phrases,"He was the least experienced member of the team."
+real,ˈriːəl,реальный,1,Common Phrases,"Is this diamond real?"
+change,ʧeɪnʤ,изменять,1,Common Phrases,"You need to change your password regularly."
+team,tiːm,команда,1,Common Phrases,"Our team won the game."
+best,bɛst,лучший,1,Common Phrases,"She is the best player on the team."
+several,ˈsɛvrəl,несколько,1,Common Phrases,"I've been to several countries."
+idea,aɪˈdɪə,идея,1,Common Phrases,"That's a great idea!"
+information,ˌɪnfərˈmeɪʃən,информация,1,Common Phrases,"Can you give me more information?"
+nothing,ˈnʌθɪŋ,ничего,1,Common Phrases,"I have nothing to say."
+ago,əˈɡoʊ,назад,1,Common Phrases,"I saw him two days ago."
+lead,liːd,вести,1,Common Phrases,"She will lead the team to success."
+social,ˈsoʊʃəl,социальный,1,Common Phrases,"Social media is very popular nowadays."
+understand,ˌʌndərˈstænd,понимать,1,Common Phrases,"I understand your point of view."
+whether,ˈwɛðər,ли,1,Common Phrases,"I don't know whether he will come."
+watch,wɑːʧ,смотреть,1,Common Phrases,"I love to watch movies on weekends."
+together,təˈɡɛðər,вместе,1,Common Phrases,"We can solve this problem together."
+follow,ˈfɑːloʊ,следовать,1,Common Phrases,"Follow me, I know the way."
+stop,stɒp,остановить,1,Common Phrases,"Please stop talking for a moment."
+anything,ˈɛniθɪŋ,что угодно,1,Common Phrases,"Is there anything I can help you with?"
+public,ˈpʌblɪk,публичный,1,Common Phrases,"The decision will be announced to the public."
+already,ɔːlˈrɛdi,уже,1,Common Phrases,"I've already seen that movie."
+speak,spiːk,говорить,1,Common Phrases,"Can you speak more clearly, please?"
+others,ˈʌðərz,другие,1,Common Phrases,"Some people agree, but others do not."
+level,ˈlɛvl,уровень,1,Common Phrases,"She reached the next level in the game."
+add,æd,добавлять,1,Common Phrases,"Can you add more sugar to my tea?"
+spend,spɛnd,тратить,1,Common Phrases,"He spends too much money on clothes."
+health,hɛlθ,здоровье,1,Common Phrases,"Good health is more valuable than gold."
+art,ɑːrt,искусство,1,Common Phrases,"Art is a reflection of society."
+war,wɔːr,война,1,Common Phrases,"The war lasted for five years."
+history,ˈhɪstəri,история,1,Common Phrases,"History teaches us valuable lessons."
+party,ˈpɑːrti,вечеринка/партия,1,Common Phrases,"Are you going to the party tonight?"
+result,rɪˈzʌlt,результат,1,Common Phrases,"The result of the test was positive."
+sure,ʃʊr,уверенный,1,Common Phrases,"Are you sure about that?"
+within,wɪˈðɪn,в пределах,1,Common Phrases,"Please stay within the boundaries."
+grow,ɡroʊ,расти,1,Common Phrases,"Plants grow better with sunlight."
+open,ˈoʊpən,открывать,1,Common Phrases,"Can you open the window?"
+walk,wɔːk,ходить,1,Common Phrases,"I walk to work every day."
+reason,ˈriːzn,причина,1,Common Phrases,"What's the reason for your decision?"
+low,loʊ,низкий,1,Common Phrases,"The prices are very low right now."
+win,wɪn,выигрывать,1,Common Phrases,"He always wants to win."
+research,rɪˈsɜːrʧ,исследование,1,Academic,"She's conducting research on climate change."
+early,ˈɜːrli,ранний,1,Common Phrases,"I prefer to wake up early."
+food,fuːd,еда,1,Common Phrases,"I love Italian food."
+moment,ˈmoʊmənt,момент,1,Common Phrases,"Just give me a moment, please."
+himself,hɪmˈsɛlf,сам,1,Common Phrases,"He did it all by himself."
+force,fɔːrs,сила,1,Common Phrases,"The force of the wind knocked the tree over."
+enough,ɪˈnʌf,достаточно,1,Common Phrases,"That's enough for today."
+education,ˌɛdʒuˈkeɪʃən,образование,1,Academic,"Education is key to a successful future."
+across,əˈkrɒs,через,1,Common Phrases,"I walked across the street."
+although,ɔːlˈðoʊ,хотя,1,Common Phrases,"Although it was raining, we went outside."
+remember,rɪˈmɛmbər,помнить,1,Common Phrases,"I remember the first time we met."
+maybe,ˈmeɪbi,возможно,1,Common Phrases,"Maybe I'll join you later."
+toward,tɔːrd,по направлению к,1,Common Phrases,"He walked toward the door."
+able,ˈeɪbəl,способный,1,Common Phrases,"She is able to solve the problem."
+age,eɪʤ,возраст,1,Common Phrases,"What's your age?"
+everything,ˈɛvrɪθɪŋ,всё,1,Common Phrases,"Everything is going according to plan."
+love,lʌv,любовь,1,Common Phrases,"I love my family."
+process,ˈprɑːsɛs,процесс,1,Common Phrases,"The process will take a few days."
+music,ˈmjuːzɪk,музыка,1,Common Phrases,"I can't live without music."
+including,ɪnˈkluːdɪŋ,включая,1,Common Phrases,"We're all going, including Tom."
+consider,kənˈsɪdər,рассматривать,1,Common Phrases,"Please consider my proposal."
+appear,əˈpɪər,появляться,1,Common Phrases,"The sun will appear soon."
+actually,ˈækʧuəli,фактически,1,Common Phrases,"Actually, I don't agree with you."
+buy,baɪ,покупать,1,Common Phrases,"I need to buy some groceries."
+probably,ˈprɒbəbli,вероятно,1,Common Phrases,"It will probably rain tomorrow."
+wait,weɪt,ждать,1,Common Phrases,"I'll wait for you here."
+die,daɪ,умирать,1,Common Phrases,"Many soldiers die in war."
+send,sɛnd,отправлять,1,Common Phrases,"I need to send this package."
+expect,ɪkˈspɛkt,ожидать,1,Common Phrases,"I didn't expect to see you here."
+sense,sɛns,чувство,1,Common Phrases,"He has a good sense of humor."
+build,bɪld,строить,1,Common Phrases,"They plan to build a new house."
+stay,steɪ,оставаться,1,Common Phrases,"I'll stay here until you're ready."
+fall,fɔːl,падать,1,Common Phrases,"Be careful not to fall."
+oh,oʊ,ох,1,Common Phrases,"Oh no, I forgot my keys."
+nation,ˈneɪʃən,нация,1,Common Phrases,"The nation celebrated its independence."
+plan,plæn,план,1,Common Phrases,"Do you have a plan for the weekend?"
+cut,kʌt,резать,1,Common Phrases,"Be careful when you cut the vegetables."
+interest,ˈɪntrəst,интерес,1,Common Phrases,"He has a strong interest in history."
+death,dɛθ,смерть,1,Common Phrases,"The death of the famous actor shocked everyone."
+course,kɔːrs,курс,1,Academic,"I'm taking a math course this semester."
+someone,ˈsʌmwʌn,кто-то,1,Common Phrases,"Someone is knocking on the door."
+experience,ɪksˈpɪəriəns,опыт,1,Common Phrases,"She has a lot of experience in teaching."
+behind,bɪˈhaɪnd,позади,1,Common Phrases,"The car is parked behind the house."
+reach,riːʧ,достигать,1,Common Phrases,"He tried to reach the top shelf."
+local,ˈloʊkəl,местный,1,Common Phrases,"I love the local food here."
+kill,kɪl,убивать,1,Common Phrases,"The hunter tried to kill a deer."
+remain,rɪˈmeɪn,оставаться,1,Common Phrases,"Please remain seated during the flight."
+effect,ɪˈfɛkt,эффект,1,Common Phrases,"The medicine had a positive effect on his health."
+please,pliːz,пожалуйста,1,Common Phrases,"Please pass me the salt."
