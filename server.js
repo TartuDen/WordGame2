@@ -12,7 +12,6 @@ import {
   addExperience,
   subtractExperience,
   selectWordForUser,
-  removeDuplicatesFromCSVFile,
 } from "./funcs.js";
 
 import { createTables, pool, showUserStats } from "./pgTables.js";
@@ -74,17 +73,6 @@ async function startSession(req, res, next) {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     await showUserStats(userId);
-
-    // Func to remove duplicates from the dictionarry
-    // removeDuplicatesFromCSVFile('words.csv')
-    //   .then((result) => {
-    //     console.log('Processed CSV:\n', result);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error:', error);
-    //   });
-
-
 
 
     const { userSimpleWords, userWordDetails } = await userKnownWords(userId);

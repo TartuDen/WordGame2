@@ -5,17 +5,24 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+// Function to get a random word and translations
 async function getRandomWordAndTranslations(userSimpleWords, filePath, nextWord = null) {
     try {
         // Step 1: Read the CSV file to get the complete word list
         const data = await fs.promises.readFile(filePath);
+
         const words = await new Promise((resolve, reject) => {
+            const lines = data.toString().split('\n');
+            let lineNumber = 0;
+
             parse(data, {
                 columns: true,
                 trim: true,
             }, (err, output) => {
                 if (err) {
-                    return reject('Error parsing CSV:', err);
+                    // Capture line number for the error
+                    lineNumber = lines.findIndex(line => line.includes(err.message.split('\n')[0])) + 1;
+                    return reject(`Error parsing CSV at line ${lineNumber}: ${err.message}`);
                 }
                 resolve(output);
             });
