@@ -142,4 +142,31 @@ function calculateXpForNextLevel(level) {
     }
   }
 
-  export {calculateXpForNextLevel, addExperience, subtractExperience, selectWordForUser}
+  function calculateAndSortWordStatistics(userWords, struggle_barrier = 0.4) {
+    const statistics = userWords.map((wordObj) => {
+        const totalGuesses = wordObj.guessed_correctly + wordObj.guessed_wrong;
+        const strugglePercent = totalGuesses > 0
+            ? ((wordObj.guessed_wrong / totalGuesses) * 100).toFixed(2)
+            : '0.00'; // If no guesses, set percentage to 0
+
+        return {
+            word: wordObj.word,
+            struggle_percent: parseFloat(strugglePercent), // Convert string percentage to a number for filtering and sorting
+            guessed: totalGuesses
+        };
+    });
+
+    // Filter by struggle percentage based on the struggle barrier
+    const filteredStatistics = statistics.filter(stat => stat.struggle_percent / 100 > struggle_barrier);
+
+    // Sort by struggle percent in descending order (highest % of wrong guesses at the top)
+    filteredStatistics.sort((a, b) => b.struggle_percent - a.struggle_percent);
+
+    // Convert the struggle percent back to string format with "%" sign
+    return filteredStatistics.map((stat) => ({
+        ...stat,
+        struggle_percent: `${stat.struggle_percent}%`
+    }));
+}
+
+  export {calculateXpForNextLevel, addExperience, subtractExperience, selectWordForUser, calculateAndSortWordStatistics}

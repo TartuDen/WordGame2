@@ -11,6 +11,7 @@ import {
   addExperience,
   subtractExperience,
   selectWordForUser,
+  calculateAndSortWordStatistics,
 } from "./funcs.js";
 
 import { createTables, pool, showUserStats } from "./pgTables.js";
@@ -227,17 +228,15 @@ app.get("/", async (req, res, next) => {
       // Store the selected word in the session and mark it as unanswered
       req.session.selectedWord = selectedWord;
       req.session.unansweredWord = true;  // Mark the word as unanswered
-      console.log("User:", user);
-      console.log("User Info:", user_info);
-      console.log("Total Experience:", total_exp);
-      console.log("Selected Word:", selectedWord);
-      console.log("Additional Words:", additionalWords);
+      const sort_word_stats = calculateAndSortWordStatistics(req.session.userWordDetails);
+      // console.log("......sortW.....\n",sort_word_stats);
       res.status(200).render("index.ejs", {
         user,
         user_info,
         total_exp,
         selectedWord,
         additionalWords,
+        sort_word_stats,
       });
     } else {
       res.redirect("/auth/google");
