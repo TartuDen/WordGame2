@@ -5,8 +5,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
 
-// Custom modules
-import { user_statistic, user_words } from "./MOCKdata.js";
+
 import {
   calculateXpForNextLevel,
   addExperience,
@@ -228,18 +227,14 @@ app.get("/", async (req, res, next) => {
       // Store the selected word in the session and mark it as unanswered
       req.session.selectedWord = selectedWord;
       req.session.unansweredWord = true;  // Mark the word as unanswered
-      // console.log("User:", user);
-      // console.log("User Info:", user_info);
-      // console.log("User Statistic:", user_statistic);
-      // console.log("User Words:", user_words);
-      // console.log("Total Experience:", total_exp);
-      // console.log("Selected Word:", selectedWord);
-      // console.log("Additional Words:", additionalWords);
+      console.log("User:", user);
+      console.log("User Info:", user_info);
+      console.log("Total Experience:", total_exp);
+      console.log("Selected Word:", selectedWord);
+      console.log("Additional Words:", additionalWords);
       res.status(200).render("index.ejs", {
         user,
         user_info,
-        user_statistic,
-        user_words,
         total_exp,
         selectedWord,
         additionalWords,
