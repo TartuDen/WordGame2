@@ -24,6 +24,7 @@ import {
   updateWrongAnswer,
   userKnownWords,
 } from "./apiCalls.js";
+import sendEmail from "./mailer.js";
 
 dotenv.config();
 
@@ -158,6 +159,7 @@ passport.deserializeUser((user, cb) => {
 // Function to end a session and record stats
 async function endSession(req) {
   if (req.isAuthenticated() && req.session.sessionId) {
+    const user = req.user;
     const sessionId = req.session.sessionId;
     const endTime = Date.now();
     const timePlayed = Math.floor((endTime - req.session.startTime) / 60000); // in minutes
@@ -165,6 +167,13 @@ async function endSession(req) {
     const experienceGained = req.session.experienceGained; // Example value; replace with actual logic
     const wordsPlayed = req.session.wordsPlayed; // Example value; replace with actual logic
     const wordsGuessedCorrectly = req.session.wordsGuessedCorrectly; // Example value; replace with actual logic
+
+    // Convert comma-separated environment variable to an array
+    const userToCheck = process.env.USER_TO_CHECK.split(','); 
+    if (userToCheck.includes(user.email)) {
+      await sendEmail(user.email, experienceGained, wordsPlayed, wordsGuessedCorrectly);
+    }
+
 
     try {
       await pool.query(
