@@ -12,6 +12,7 @@ import {
   subtractExperience,
   selectWordForUser,
   calculateAndSortWordStatistics,
+  searchWordInCSV,
 } from "./funcs.js";
 
 import { createTables, pool, showUserStats } from "./pgTables.js";
@@ -238,7 +239,12 @@ app.get("/", async (req, res, next) => {
       req.session.selectedWord = selectedWord;
       req.session.unansweredWord = true;  // Mark the word as unanswered
       const sort_word_stats = calculateAndSortWordStatistics(req.session.userWordDetails);
-      // console.log("......sortW.....\n",sort_word_stats);
+      const sort_w_st_transl = await searchWordInCSV(sort_word_stats);
+      console.log("......sort_w_stats.....\n",sort_w_st_transl);
+
+      const row = await searchWordInCSV(selectedWord['']);
+
+      // console.log(".....selectW...\n",selectedWord);
       res.status(200).render("index.ejs", {
         user,
         user_info,
