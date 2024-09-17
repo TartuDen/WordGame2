@@ -269,17 +269,18 @@
                 </td>
               </tr>
               <% } %>
-                <% if (locals.sort_word_stats) { %>
+                <% if (locals.wordStatsWithTranslations) { %>
                   <table id="word-stats-table" class="table-stats">
                     <thead>
                       <tr>
                         <th class="table-header">Word</th>
                         <th class="table-header">Difficulty</th>
                         <th class="table-header">Guessed Count</th>
+                        <th class="table-header">Translation</th> <!-- New column header -->
                       </tr>
                     </thead>
                     <tbody>
-                      <% sort_word_stats.forEach(function(stat) { let difficultyColor, difficultyEmoji; const
+                      <% wordStatsWithTranslations.forEach(function(stat) { let difficultyColor, difficultyEmoji; const
                         strugglePercent=parseFloat(stat.struggle_percent); if (strugglePercent>= 80) {
                         difficultyColor = '#ff4c4c'; // Red
                         difficultyEmoji = '🔴';
@@ -305,11 +306,19 @@
                           <td class="table-data">
                             <%= stat.guessed %>
                           </td>
+                          <td class="table-data">
+                            <% if (stat.word===selectedWord['English Word']) { %>
+                              Try to guess! <!-- Hide translation if it matches -->
+                              <% } else { %>
+                                <%= stat.translation || 'Not found' %> <!-- Show translation if it does not match -->
+                                  <% } %>
+                          </td>
                         </tr>
                         <% }); %>
                     </tbody>
                   </table>
                   <% } %>
+
 
 
                     <% } %>

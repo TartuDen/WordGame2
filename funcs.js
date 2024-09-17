@@ -144,7 +144,7 @@ async function selectWordForUser(req) {
   }
 }
 
-function calculateAndSortWordStatistics(userWords, struggle_barrier = 0.4) {
+function calculateAndSortWordStatistics(userWords, struggle_barrier) {
   const statistics = userWords.map((wordObj) => {
     const totalGuesses = wordObj.guessed_correctly + wordObj.guessed_wrong;
     const strugglePercent = totalGuesses > 0

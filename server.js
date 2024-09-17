@@ -26,6 +26,7 @@ import {
   userKnownWords,
 } from "./apiCalls.js";
 import sendEmail from "./mailer.js";
+import { struggle_barrier } from "./settings.js";
 
 dotenv.config();
 
@@ -170,7 +171,7 @@ async function endSession(req) {
     const wordsGuessedCorrectly = req.session.wordsGuessedCorrectly; // Example value; replace with actual logic
 
     // Convert comma-separated environment variable to an array
-    const userToCheck = process.env.USER_TO_CHECK.split(','); 
+    const userToCheck = process.env.USER_TO_CHECK.split(',');
     if (userToCheck.includes(user.email)) {
       await sendEmail(user.email, experienceGained, wordsPlayed, wordsGuessedCorrectly);
     }
@@ -238,9 +239,8 @@ app.get("/", async (req, res, next) => {
       // Store the selected word in the session and mark it as unanswered
       req.session.selectedWord = selectedWord;
       req.session.unansweredWord = true;  // Mark the word as unanswered
-      const sort_word_stats = calculateAndSortWordStatistics(req.session.userWordDetails);
-      const sort_w_st_transl = await searchWordInCSV(sort_word_stats);
-      console.log("......sort_w_stats.....\n",sort_w_st_transl);
+      const sortedWordStatistics = calculateAndSortWordStatistics(req.session.userWordDetails,struggle_barrier);
+      const wordStatsWithTranslations = await searchWordInCSV(sortedWordStatistics);
 
       const row = await searchWordInCSV(selectedWord['']);
 
@@ -251,7 +251,7 @@ app.get("/", async (req, res, next) => {
         total_exp,
         selectedWord,
         additionalWords,
-        sort_word_stats,
+        wordStatsWithTranslations,
       });
     } else {
       res.redirect("/auth/google");
