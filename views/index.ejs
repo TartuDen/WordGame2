@@ -97,7 +97,7 @@
 
     .translation-option {
       cursor: pointer;
-      background-color: #71c7fc;
+      background-color: #78aeff;
       /* Light sky blue */
       border: none;
       color: white;
@@ -271,16 +271,16 @@
                     <tbody>
                       <% wordStatsWithTranslations.forEach(function(stat) { let difficultyColor, difficultyEmoji; const
                         strugglePercent=parseFloat(stat.struggle_percent); if (strugglePercent>= 80) {
-                        difficultyColor = '##FFF9C4'; // Red
+                        difficultyColor = '#ffb6b4'; // Red
                         difficultyEmoji = '🔴';
                         } else if (strugglePercent >= 60) {
-                        difficultyColor = '##FFF9C4'; // Yellow
+                        difficultyColor = '#fff0b4'; // Yellow
                         difficultyEmoji = '🟡';
                         } else if (strugglePercent >= 40) {
-                        difficultyColor = '##FFF9C4'; // Light Green
+                        difficultyColor = '#afffd7'; // Light Green
                         difficultyEmoji = '🟢';
                         } else {
-                        difficultyColor = '##FFF9C4'; // Green
+                        difficultyColor = '#FFF9C4'; // Green
                         difficultyEmoji = '🟢';
                         }
                         %>
