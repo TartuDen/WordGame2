@@ -1,3 +1,4 @@
+// funcs.js
 import getRandomWordAndTranslations from "./word_selector.js";
 import { less_struggle_word_interval, struggle_barrier } from "./settings.js";
 import fs from 'fs';

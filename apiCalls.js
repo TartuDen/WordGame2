@@ -1,3 +1,4 @@
+// apiCalls.js
 import { pool } from "./pgTables.js";
 
 async function getUser(email) {
