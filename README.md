@@ -24,7 +24,7 @@ This is a simple and educational word game designed for kids to help them learn 
 3. **Create and Configure Docker Environment:**
    - Create a .env file in the root directory if it doesn’t already exist and add your environment variables. For example:
    ```bash
-   OOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
    DB_PASS=your_postgresql_password
    DB_PORT=5432
