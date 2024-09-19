@@ -7,13 +7,16 @@ import { calculateXpForNextLevel } from "./funcs.js";
 
 dotenv.config();
 
+
+
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "wordgame2",
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT || 5432,
+  user: process.env.POSTGRES_USER || 'postgres',
+  host: process.env.POSTGRES_HOST || 'db',
+  database: process.env.POSTGRES_DB || 'wordgame2',
+  password: process.env.POSTGRES_PASSWORD || '123',
+  port: process.env.POSTGRES_PORT || 5432,
 });
+
 
 function displayUserProgressInTerminal(userStats) {
 

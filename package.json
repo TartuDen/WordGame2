@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.5",
-    "chartjs-node-canvas": "^4.1.6",
     "csv-parse": "^5.5.6",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
