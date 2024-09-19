@@ -11,27 +11,49 @@ This is a simple and educational word game designed for kids to help them learn 
 
 ## Installation
 
-1. **Clone the Repository:**
+### Option1: Using Docker
+
+1. **Install Docker:**
+   - Follow the [official Docker installation guide](https://docs.docker.com/get-docker/) for your operating system.
+
+2. **Clone the Repository:**
    ```bash
    git clone https://github.com/TartuDen/WordGame2
    cd WordGame2
    ```
-2. **Install Dependencies:** Make sure you have Node.js installed. Then run:
+3. **Create and Configure Docker Environment:**
+   - Create a .env file in the root directory if it doesn’t already exist and add your environment variables. For example:
+   ```bash
+   OOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   DB_PASS=your_postgresql_password
+   DB_PORT=5432
+   SESSION_SECRET=your_session_secret
+   ```
+4. **Build and Start the Docker Containers:** Run the following command to build and start the application and database containers:
+```bash
+docker-compose up --build
+```
+5. **Access the Game:** Open your browser and navigate to http://localhost:8081 to start playing.
+
+### Option2: Without Docker
+1. **Install Dependencies:** Make sure you have Node.js installed. Then run:
 ```bash
 npm install
 ```
-3. **Set Up Environment Variables:** Create a .env file in the root directory and add your environment variables. Example:
+2. **Set Up Environment Variables:** Create a .env file in the root directory and add your environment variables. Example:
 ```bash
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-DB_PASS="password to your postgresql db'
-DB_PORT=f'port of pg db'
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+DB_PASS=your_postgresql_password
+DB_PORT=5432
 ```
-4. **Run the Game:**
+3. **Run the Game:**
 ```bash
 npm start
 ```
-5. **Access the Game:** Open your browser and navigate to http://localhost:8081 to start playing.
+
+4. **Access the Game:** Open your browser and navigate to http://localhost:8081 to start playing.
 
 ## Game Logic
 **Word Selection Process**
