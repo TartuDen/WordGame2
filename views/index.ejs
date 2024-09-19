@@ -184,18 +184,19 @@
           </p>
 
           <!-- XP Progress Bar -->
-          <div class="progress" style="height: 20px">
-            <div class="progress-bar" role="progressbar" style="width: <% 
-                if (total_exp > 0) { 
-                  %><%= (user_info.current_xp / total_exp) * 100 %><% 
-                } else { 
-                  %>0<% 
-                } 
-              %>%" aria-valuenow="<%= user_info.current_xp %>" aria-valuemin="0" aria-valuemax="<%= total_exp %>">
+          <div class="progress"
+            style="height: 20px; background-color: #f5f5f5; border-radius: 10px; overflow: hidden; position: relative;">
+            <div class="progress-bar" role="progressbar" style="width: <% if (total_exp > 0) { %><%= (user_info.current_xp / total_exp) * 100 %><% } else { %>0<% } %>%; 
+                       background-color: <% if ((user_info.current_xp / total_exp) * 100 > 50) { %>#33cc33<% } else if ((user_info.current_xp / total_exp) * 100 > 25) { %>#ffcc00<% } else { %>#ff4c4c<% } %>;
+                       height: 100%;" aria-valuenow="<%= user_info.current_xp %>" aria-valuemin="0"
+              aria-valuemax="<%= total_exp %>"></div>
+            <span
+              style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 14px; text-shadow: 1px 1px 2px #000;">
               <% if (total_exp> 0) { %> <%= Math.round((user_info.current_xp / total_exp) * 100) %>% <% } else { %> 0%
                     <% } %>
-            </div>
+            </span>
           </div>
+
         </div>
 
         <a href="/auth/logout" class="btn btn-danger mt-3">Logout</a>
