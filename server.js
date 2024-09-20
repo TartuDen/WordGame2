@@ -135,7 +135,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        let apiResp = await getUser(profile.emails[0].value);
+        let apiResp = await getUser(profile.emails[0].value, "users");
 
         if (!apiResp) {
           const newUser = await regUser({

@@ -126,9 +126,21 @@ async function createTables() {
                 id SERIAL PRIMARY KEY,
                 user_name VARCHAR(100) NOT NULL,
                 email VARCHAR(100) UNIQUE NOT NULL,
-                ava TEXT
+                ava TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
             );
         `);
+
+    await pool.query(`
+          CREATE TABLE IF NOT EXISTS email_users (
+          id SERIAL PRIMARY KEY,
+          user_name VARCHAR(100),
+          email VARCHAR(100) UNIQUE NOT NULL,
+          password VARCHAR(255) NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
 
     // Create the user_info table
     await pool.query(`

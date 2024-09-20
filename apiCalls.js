@@ -1,10 +1,10 @@
 // apiCalls.js
 import { pool } from "./pgTables.js";
 
-async function getUser(email) {
+async function getUser(email, fromTable) {
   try {
     const client = await pool.connect();
-    const query = "SELECT * FROM users WHERE email = $1";
+    const query = `SELECT * FROM ${fromTable} WHERE email = $1`;
     const result = await client.query(query, [email]);
     client.release(); // Release the client back to the pool
 
@@ -16,7 +16,6 @@ async function getUser(email) {
     console.error("Error fetching user:", error);
     throw new Error("Internal server error"); // Throw an error to be caught by the calling function
   }
-  // Remove the pool.end() call here
 }
 
 async function regUser(user) {
