@@ -204,4 +204,12 @@ async function searchWordInCSV(wordsArray) {
   }
 }
 
-export { calculateXpForNextLevel, addExperience, subtractExperience, selectWordForUser, calculateAndSortWordStatistics, searchWordInCSV }
+async function hashPassword(password) {
+  return await bcrypt.hash(password, SALT_ROUNDS);
+}
+
+async function verifyPassword(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword);
+}
+
+export {hashPassword, verifyPassword, calculateXpForNextLevel, addExperience, subtractExperience, selectWordForUser, calculateAndSortWordStatistics, searchWordInCSV }

@@ -5,6 +5,8 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
+import bcrypt from 'bcrypt';
+import { Strategy as LocalStrategy } from "passport-local";
 
 
 import {
@@ -33,6 +35,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8081;
+const SALT_ROUNDS = 10;
+
+
 
 // 2. Database and Error Handling
 class AppError extends Error {
@@ -197,7 +202,70 @@ async function endSession(req) {
   }
 }
 
+
+// Add Local Strategy
+passport.use(
+  "local",
+  new LocalStrategy(
+    { usernameField: "email" }, // Expecting 'email' and 'password' in req.body
+    async (email, password, done) => {
+      try {
+        // Fetch user by email
+        const user = await getUser(email); // Modify `getUser` to find by email
+
+        if (!user) {
+          return done(null, false, { message: "Incorrect email or password." });
+        }
+
+        // Compare the provided password with the hashed password
+        const passwordMatches = await verifyPassword(password, user.password);
+        if (!passwordMatches) {
+          return done(null, false, { message: "Incorrect email or password." });
+        }
+
+        // Authentication successful
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
 // 5. Route Definitions
+app.post("/register", async (req, res, next) => {
+  const { email, password, name } = req.body;
+
+  try {
+    // Hash the password
+    const hashedPassword = await hashPassword(password);
+
+    // Register the new user in your database
+    const newUser = await regUser({ user_name: name, email, password: hashedPassword });
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    next(new AppError("User registration failed", 500));
+  }
+});
+
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
+});
+
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true, // Optional, for showing login errors
+  }),
+  (req, res) => {
+    // Successful authentication
+    res.redirect("/");
+  }
+);
+
 // ____________________Google OAuth routes
 app.get(
   "/auth/google",
@@ -255,7 +323,7 @@ app.get("/", async (req, res, next) => {
         wordStatsWithTranslations,
       });
     } else {
-      res.redirect("/auth/google");
+      res.redirect("/login");
     }
   } catch (err) {
     next(err);
@@ -287,7 +355,7 @@ app.post("/correct_answer", async (req, res, next) => {
 
       res.redirect("/");
     } else {
-      res.redirect("/auth/google");
+      res.redirect("/login");
     }
   } catch (err) {
     next(err);
@@ -317,7 +385,7 @@ app.post("/wrong_answer", async (req, res, next) => {
 
       res.redirect("/");
     } else {
-      res.redirect("/auth/google");
+      res.redirect("/login");
     }
   } catch (err) {
     next(err);
@@ -345,7 +413,7 @@ app.get("/wrong_answer", async (req, res, next) => {
       // Redirect back to home page after handling wrong answer
       res.redirect("/");
     } else {
-      res.redirect("/auth/google");
+      res.redirect("/login");
     }
   } catch (err) {
     next(err);
@@ -362,12 +430,12 @@ app.get("/auth/logout", async (req, res) => {
         res.redirect("/");
       } else {
         req.session.destroy(() => {
-          res.redirect("/auth/google");
+          res.redirect("/login");
         });
       }
     });
   } catch (err) {
-    res.redirect("/auth/google");
+    res.redirect("/login");
   }
 });
 
