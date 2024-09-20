@@ -210,20 +210,28 @@ passport.use(
     { usernameField: "email" }, // Expecting 'email' and 'password' in req.body
     async (email, password, done) => {
       try {
-        // Fetch user by email
-        const user = await getUser(email); // Modify `getUser` to find by email
+        // Mock user data simulating a user fetched from a database
+        const user = {
+          user_name: "DenVer",
+          email: "new@email.com",  // Change this email to the mock user's email
+          password: "$2b$12$GbUU7STsh.FDmPU96mL4IuiorDWRIZShuYVdwDyC/ccDPQgQ.CfSu", // This should be a hashed password (bcrypt hashed for testing purposes)
+          ava: ""
+        };
 
-        if (!user) {
+        // Simulate user not found
+        if (email !== user.email) {
           return done(null, false, { message: "Incorrect email or password." });
         }
 
-        // Compare the provided password with the hashed password
-        const passwordMatches = await verifyPassword(password, user.password);
+        // Simulate password comparison (you can hash a test password for this)
+        // In a real scenario, compare the provided password with the stored hashed password
+        const passwordMatches = await bcrypt.compare(password, user.password);
+        
         if (!passwordMatches) {
           return done(null, false, { message: "Incorrect email or password." });
         }
 
-        // Authentication successful
+        // If authentication succeeds, return the user object
         return done(null, user);
       } catch (err) {
         return done(err);
@@ -231,6 +239,7 @@ passport.use(
     }
   )
 );
+
 
 // 5. Route Definitions
 app.post("/register", async (req, res, next) => {
@@ -257,14 +266,14 @@ app.get("/login", (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true, // Optional, for showing login errors
+    failureRedirect: "/login",  // Redirect back to login page on failure
   }),
+  startSession,  // Start session after successful login
   (req, res) => {
-    // Successful authentication
-    res.redirect("/");
+    res.redirect("/");  // Redirect to home page
   }
 );
+
 
 // ____________________Google OAuth routes
 app.get(
